@@ -5,7 +5,7 @@ import React from 'react';
 import { ContactsListRow } from "./Contacts-list-row"
 
 // Import styles
-
+import "./style/contacts-list/style.scss"
 
 // Create interfaces
 interface ContactUI {
@@ -35,9 +35,7 @@ export const ContactList = (props: ContactListUI) => {
         <table className="table">
             <thead>
                 <tr>
-                    <th className="table-head-item" />
 
-                    <th className="table-head-item">Title</th>
 
                     <th className="table-head-item">First Name</th>
 
@@ -55,28 +53,30 @@ export const ContactList = (props: ContactListUI) => {
 
                     <th className="table-head-item">Tags</th>
 
-                    <th className="table-head-item" />
-                </tr>
-            </thead>
 
-            <tbody className="table-body">
-                {props.contacts.length > 0 ? (
-                    props.contacts.map((contact: ContactUI, idx) => (
-                        <ContactsListRow
-                            key={contact.id}
-                            contact={contact}
-                            position={idx + 1}
-                            handleContactRemove={props.handleContactRemove}
-                        />
+                </tr>
+            </thead >
+
+            <tbody className="table-body" >
+                {
+                    props.contacts.length > 0 ? (
+                        props.contacts.map((contact: ContactUI, idx) => (
+
+                            <ContactsListRow
+                                key={contact.id}
+                                contact={contact}
+                                position={idx + 1}
+                                handleContactRemove={props.handleContactRemove}
+                            />
+                        )
+                        )
+                    ) : (
+                        <tr className="table-row">
+                            <td className="table-item" style={{ textAlign: 'center' }} colSpan={6}>There are no contacts to show. Create one!</td>
+                        </tr>
                     )
-                    )
-                ) : (
-                    <tr className="table-row">
-                        <td className="table-item" style={{ textAlign: 'center' }} colSpan={9}>There are no contacts to show. Create one!</td>
-                    </tr>
-                )
                 }
-            </tbody>
-        </table>
+            </tbody >
+        </table >
     )
 }

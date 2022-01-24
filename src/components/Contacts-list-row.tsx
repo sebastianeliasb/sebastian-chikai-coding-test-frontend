@@ -20,9 +20,9 @@ interface ContactsListRowUI {
 
 export const ContactsListRow = (props: ContactsListRowUI) => (
     <tr className="table-row">
-        <td className="table-item">
+        {/* <td className="table-item">
             {props.position}
-        </td>
+        </td> */}
 
         <td className="table-item">
             {props.contact.firstName}
@@ -53,14 +53,16 @@ export const ContactsListRow = (props: ContactsListRowUI) => (
         </td>
 
 
-        <td className="table-item">
-            <button
-                className="btn btn-remove"
+        <td className="table-item option">
+            <div className="btn-remove"
                 onClick={() => props.handleContactRemove(props.contact.id, props.contact.firstName)}>
-                Remove contact
-            </button>
-        </td>
-    </tr>
+
+            </div>
+            <div className="btn-edit"
+            >
+            </div>
+        </td >
+    </tr >
 
 )
 
