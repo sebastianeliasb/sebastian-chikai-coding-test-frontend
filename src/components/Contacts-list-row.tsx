@@ -48,11 +48,10 @@ export const ContactsListRow = (props: ContactsListRowUI) => (
         <td className="table-item">
             {props.contact.link}
         </td>
-
-        { //**COME BACK TO THIS ONE! FORGOT TO IDENTIFY IN SERVER */
-        /* <td className="table-item">
+        <td className="table-item">
             {props.contact.tags}
-        </td> */}
+        </td>
+
 
         <td className="table-item">
             <button
