@@ -8,7 +8,7 @@ exports.contactsAll = async (req, res) => {
     .select("*") // select all records
     .from("contacts") // from 'contacts' table
     .then((userData) => {
-      // Send books extracted from database in response
+      // Send contacts extracted from database in response
       res.json(userData);
     })
     .catch((err) => {
@@ -17,7 +17,7 @@ exports.contactsAll = async (req, res) => {
     });
 };
 
-// Create new book
+// Create new contact
 exports.contactsCreate = async (req, res) => {
   // Add new contact to database
   knex("contacts")
