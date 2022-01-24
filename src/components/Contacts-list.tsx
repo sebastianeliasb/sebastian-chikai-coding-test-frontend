@@ -26,7 +26,7 @@ interface ContactListUI {
     handleContactRemove: (id: number, firstName: string) => void;
 }
 
-// Create BookshelfList component
+// Create Contacts component
 export const ContactList = (props: ContactListUI) => {
     // Show loading message
     if (props.loading) return <p>Contacts are loading...</p>
