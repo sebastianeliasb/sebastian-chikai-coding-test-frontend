@@ -18,6 +18,7 @@ export const ContactDashboard = () => {
     const [avatar, setAvatar] = useState('')
     const [link, setLink] = useState('')
     const [tags, setTags] = useState('')
+    const [modal, setModal] = useState(false)
     const [contacts, setContacts] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -51,6 +52,13 @@ export const ContactDashboard = () => {
         setAvatar('')
         setLink('')
         setTags('')
+    }
+
+    const handleOpenModal = () => {
+        setModal(true)
+    }
+    const handleCloseModal = () => {
+        setModal(false)
     }
 
     // Create new contacts
@@ -88,6 +96,7 @@ export const ContactDashboard = () => {
 
             // Reset all input fields
             handleInputsReset()
+            handleCloseModal()
         }
     }
 
@@ -121,63 +130,77 @@ export const ContactDashboard = () => {
     return (
         <div className="contact-list-wrapper">
             {/* Form for creating new contact */}
-            <div className="contact-list-form">
-                <div className="form-wrapper" onSubmit={handleContactSubmit}>
-                    <div className="form-row">
-                        <fieldset>
-                            <label className="form-label" htmlFor="firstName">Enter first name:</label>
-                            <input className="form-input" type="text" id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} />
-                        </fieldset>
+            {modal === true ? <div className='backlash'>
+                <div className="contact-list-form">
+                    <div className="form-wrapper" onSubmit={handleContactSubmit}>
+                        <div className="form-row">
+                            <fieldset>
+                                <label className="form-label" htmlFor="firstName">Enter first name:</label>
+                                <input className="form-input" type="text" id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} />
+                            </fieldset>
 
-                        <fieldset>
-                            <label className="form-label" htmlFor="lastName">Enter last name:</label>
-                            <input className="form-input" type="text" id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} />
-                        </fieldset>
+                            <fieldset>
+                                <label className="form-label" htmlFor="lastName">Enter last name:</label>
+                                <input className="form-input" type="text" id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} />
+                            </fieldset>
+                        </div>
+
+                        <div className="form-row">
+                            <fieldset>
+                                <label className="form-label" htmlFor="email">Enter email:</label>
+                                <input className="form-input" type="text" id="email" name="email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
+                            </fieldset>
+
+                            <fieldset>
+                                <label className="form-label" htmlFor="age">Enter age:</label>
+                                <input className="form-input" type="text" id="age" name="age" value={age} onChange={(e) => setAge(e.currentTarget.value)} />
+                            </fieldset>
+
+                            <fieldset>
+                                <label className="form-label" htmlFor="phoneNumber">Enter phone number:</label>
+                                <input className="form-input" type="text" id="phoneNumber" name="phoneNumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.currentTarget.value)} />
+                            </fieldset>
+
+                            <fieldset>
+                                <label className="form-label" htmlFor="avatar">Enter avatar:</label>
+                                <input className="form-input" type="text" id="avatar" name="avatar" value={avatar} onChange={(e) => setAvatar(e.currentTarget.value)} />
+                            </fieldset>
+
+                            <fieldset>
+                                <label className="form-label" htmlFor="link">Enter personal website:</label>
+                                <input className="form-input" type="text" id="link" name="link" value={link} onChange={(e) => setLink(e.currentTarget.value)} />
+                            </fieldset>
+
+                            <fieldset>
+                                <label className="form-label" htmlFor="tags">Enter tags:</label>
+                                <input className="form-input" type="text" id="tags" name="tags" value={tags} onChange={(e) => setTags(e.currentTarget.value)} />
+                            </fieldset>
+
+                        </div>
                     </div>
-
-                    <div className="form-row">
-                        <fieldset>
-                            <label className="form-label" htmlFor="email">Enter email:</label>
-                            <input className="form-input" type="text" id="email" name="email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
-                        </fieldset>
-
-                        <fieldset>
-                            <label className="form-label" htmlFor="age">Enter age:</label>
-                            <input className="form-input" type="text" id="age" name="age" value={age} onChange={(e) => setAge(e.currentTarget.value)} />
-                        </fieldset>
-
-                        <fieldset>
-                            <label className="form-label" htmlFor="phoneNumber">Enter phone number:</label>
-                            <input className="form-input" type="text" id="phoneNumber" name="phoneNumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.currentTarget.value)} />
-                        </fieldset>
-
-                        <fieldset>
-                            <label className="form-label" htmlFor="avatar">Enter avatar:</label>
-                            <input className="form-input" type="text" id="avatar" name="avatar" value={avatar} onChange={(e) => setAvatar(e.currentTarget.value)} />
-                        </fieldset>
-
-                        <fieldset>
-                            <label className="form-label" htmlFor="link">Enter personal website:</label>
-                            <input className="form-input" type="text" id="link" name="link" value={link} onChange={(e) => setLink(e.currentTarget.value)} />
-                        </fieldset>
-
-                        <fieldset>
-                            <label className="form-label" htmlFor="tags">Enter tags:</label>
-                            <input className="form-input" type="text" id="tags" name="tags" value={tags} onChange={(e) => setTags(e.currentTarget.value)} />
-                        </fieldset>
-
+                    <div className='add-btn-wrapper'>
+                        <button onClick={handleContactSubmit} className="btn btn-add">Add contact</button>
+                    </div>
+                    <div className='close-modal-wrapper'>
+                        <button onClick={handleCloseModal} className="btn btn-add">Close</button>
                     </div>
                 </div>
+            </div> : null}
 
-                <button onClick={handleContactSubmit} className="btn btn-add">Add a contact</button>
+            <div className='open-modal-wrapper'>
+                <button onClick={handleOpenModal} className="btn btn-add">Add a contact</button>
             </div>
+
+
 
             {/* Render contacts list component */}
             <ContactList contacts={contacts} loading={loading} handleContactRemove={handleContactRemove} />
 
             {/* Show reset button if list contains at least one contact */}
             {contacts.length > 0 && (
-                <button className="btn btn-reset" onClick={handleListReset}>Reset Contacts list.</button>
+                <div className='reset-btn-wrapper'>
+                    <button className="btn btn-reset" onClick={handleListReset}>Reset Contacts list.</button>
+                </div>
             )}
         </div>
 

@@ -1,0 +1,58 @@
+.table {
+  background-color: #274157;
+  height: auto;
+  width: 100%;
+}
+
+.table tbody,
+.table thead {
+  height: 70px;
+  background-color: #132d43;
+  color: white;
+}
+
+.table tbody .table-head-item,
+.table tbody .table-item,
+.table thead .table-head-item,
+.table thead .table-item {
+  width: 60px;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+.table .table-item {
+  text-align: center;
+  background-color: #132d43;
+}
+
+.table .option {
+  display: flex;
+  flex-direction: row;
+  justify-content: center !important;
+}
+
+.table .option .btn-edit,
+.table .option .btn-remove {
+  height: 20px;
+  width: 20px;
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.table .option .btn-remove {
+  background-image: url("../../../assets/icons/delete.png");
+}
+
+.table .option .btn-remove:hover {
+  background-image: url("../../../assets/icons/delete-hover.png");
+}
+
+.table .option .btn-edit {
+  background-image: url("../../../assets/icons/edit.png");
+}
+
+.table .option .btn-edit:hover {
+  background-image: url("../../../assets/icons/edit-hover.png");
+}
+/*# sourceMappingURL=style.css.map */
