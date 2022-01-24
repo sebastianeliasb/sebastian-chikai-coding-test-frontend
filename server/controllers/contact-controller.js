@@ -30,6 +30,7 @@ exports.contactsCreate = async (req, res) => {
       phoneNumber: req.body.phoneNumber,
       avatar: req.body.avatar,
       link: req.body.link,
+      tags: req.body.tags,
     })
     .then(() => {
       // Send a success message in response

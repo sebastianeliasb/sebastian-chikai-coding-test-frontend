@@ -5,6 +5,7 @@ import axios from 'axios'
 import { ContactList } from './Contacts-list'
 
 // Import styles
+import "./style/contacts-dashboard/style.scss"
 
 // Create Contact component
 export const ContactDashboard = () => {
@@ -54,13 +55,17 @@ export const ContactDashboard = () => {
 
     // Create new contacts
     const handleContactCreate = () => {
-        // Send POST request to 'bcontacts/create' endpoint
+        // Send POST request to 'contacts/create' endpoint
         axios
             .post('http://localhost:4001/contacts/create', {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
-                age: age
+                age: age,
+                phoneNumber: phoneNumber,
+                avatar: avatar,
+                link: link,
+                tags: tags
             })
             .then(res => {
                 console.log(res.data)

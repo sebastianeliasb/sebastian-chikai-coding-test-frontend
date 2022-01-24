@@ -32,6 +32,7 @@ knex.schema
           table.string("phoneNumber");
           table.string("avatar");
           table.string("link");
+          table.string("tags");
         })
         .then(() => {
           // Log success message
