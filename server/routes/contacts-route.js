@@ -1,7 +1,7 @@
 // Import express
 const express = require("express");
 
-// Import books-controller
+// Import contacts-controller
 const contactsRoutes = require("./../controllers/contact-controller.js");
 
 // Create router
