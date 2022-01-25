@@ -71,8 +71,8 @@ export const ContactList = (props: ContactListUI) => {
                         )
                         )
                     ) : (
-                        <tr className="table-row">
-                            <td className="table-item" style={{ textAlign: 'center' }} colSpan={6}>There are no contacts to show. Create one!</td>
+                        <tr className="table-row info">
+                            <td className="table-item " style={{ textAlign: 'center' }} colSpan={6}>There are no contacts to show. Create one!</td>
                         </tr>
                     )
                 }

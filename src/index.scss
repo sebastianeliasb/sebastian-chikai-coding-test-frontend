@@ -12,3 +12,44 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.btn {
+  background-color: rgba(179, 171, 171, 0.657);
+  border-radius: 8px;
+  border-width: 0;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 12px;
+  text-align: center;
+  transition: all 200ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  &:active {
+    background: #fafafa;
+    transition: all 0.1s ease-out;
+    border: 7px solid #fafafa;
+    box-shadow: 0 7px 30px #0c0c0ca6;
+    color: white;
+  }
+}
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  margin-bottom: 10px;
+}
+.btn-reset,
+.btn-close {
+  background-color: rgba(185, 8, 8, 0.555);
+}
