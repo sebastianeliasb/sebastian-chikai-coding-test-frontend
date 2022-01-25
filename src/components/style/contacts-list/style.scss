@@ -1,29 +1,36 @@
 .table {
-  background-color: #274157;
   height: auto;
   width: 100%;
 
   tbody,
   thead {
     height: 70px;
-    background-color: #132d43;
     color: white;
 
     .table-head-item,
     .table-item {
-      width: 60px;
+      width: 65px;
       box-sizing: border-box;
       padding: 5px;
     }
   }
 
+  .table-row {
+    height: 65px;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.01);
+      background-color: #1d3b53;
+    }
+  }
+  thead {
+    background-color: #1d3b53;
+  }
+
   .table-item {
     text-align: center;
-    background-color: #132d43;
-  }
-  .option {
-    display: flex;
-    flex-direction: row;
+
+    height: 100%;
     justify-content: center !important ;
 
     .btn-edit,
@@ -34,17 +41,25 @@
       background-size: cover;
       cursor: pointer;
     }
+  }
+  .option {
+    width: 100%;
+    height: 100%;
+
     .btn-remove {
+      float: right;
       background-image: url("../../../assets/icons/delete.png");
-    }
-    .btn-remove:hover {
-      background-image: url("../../../assets/icons/delete-hover.png");
+
+      &:hover {
+        background-image: url("../../../assets/icons/delete-hover.png");
+      }
     }
     .btn-edit {
       background-image: url("../../../assets/icons/edit.png");
-    }
-    .btn-edit:hover {
-      background-image: url("../../../assets/icons/edit-hover.png");
+      float: left;
+      &:hover {
+        background-image: url("../../../assets/icons/edit-hover.png");
+      }
     }
   }
 }

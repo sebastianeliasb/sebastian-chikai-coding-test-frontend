@@ -22,9 +22,10 @@ export const ContactDashboard = () => {
     const [contacts, setContacts] = useState([])
     const [loading, setLoading] = useState(true)
 
-    // Fetch all bcontacts on initial render
+    // Fetch all contacts on initial render
     useEffect(() => {
         fetchContacts()
+
     }, [])
 
     // Fetch all bcontacts
@@ -84,7 +85,7 @@ export const ContactDashboard = () => {
             })
             .catch(error => console.error(`There was an error creating the ${firstName} error: ${error}`))
     }
-
+    // console.log(fetchContacts())
     // Submit new contact
     const handleContactSubmit = () => {
         // Check if all fields are filled
@@ -130,62 +131,63 @@ export const ContactDashboard = () => {
     return (
         <div className="contact-list-wrapper">
             {/* Form for creating new contact */}
-            {modal === true ? <div className='backlash'>
-                <div className="contact-list-form">
-                    <div className="form-wrapper" onSubmit={handleContactSubmit}>
-                        <div className="form-row">
-                            <fieldset>
-                                <label className="form-label" htmlFor="firstName">Enter first name:</label>
-                                <input className="form-input" type="text" id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} />
-                            </fieldset>
+            {modal === true ?
+                <div className='backlash'>
+                    <div className="contact-list-form" onSubmit={handleContactSubmit}>
 
-                            <fieldset>
-                                <label className="form-label" htmlFor="lastName">Enter last name:</label>
-                                <input className="form-input" type="text" id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} />
-                            </fieldset>
+
+                        <fieldset className='firstName'>
+                            <label className="form-label" htmlFor="firstName">Enter first name:</label>
+                            <input className="form-input" type="text" id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} />
+                        </fieldset>
+                        <fieldset className='lastName'>
+                            <label className="form-label" htmlFor="lastName">Enter last name:</label>
+                            <input className="form-input" type="text" id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.currentTarget.value)} />
+                        </fieldset>
+                        <fieldset className='email'>
+                            <label className="form-label" htmlFor="email">Enter email:</label>
+                            <input className="form-input" type="text" id="email" name="email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
+                        </fieldset>
+                        <fieldset className='phoneNumber'>
+                            <label className="form-label" htmlFor="phoneNumber">Enter phone number:</label>
+                            <input className="form-input" type="text" id="phoneNumber" name="phoneNumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.currentTarget.value)} />
+                        </fieldset>
+
+
+                        <fieldset className='age'>
+                            <label className="form-label" htmlFor="age">Enter age:</label>
+                            <input className="form-input" type="text" id="age" name="age" value={age} onChange={(e) => setAge(e.currentTarget.value)} />
+                        </fieldset>
+                        <fieldset className='link'>
+                            <label className="form-label" htmlFor="link">Enter personal website:</label>
+                            <input className="form-input" type="text" id="link" name="link" value={link} onChange={(e) => setLink(e.currentTarget.value)} />
+                        </fieldset>
+
+
+
+                        <fieldset className='avatar'>
+                            <label className="form-label" htmlFor="avatar">Enter avatar:</label>
+                            <input className="form-input" type="text" id="avatar" name="avatar" value={avatar} onChange={(e) => setAvatar(e.currentTarget.value)} />
+                        </fieldset>
+
+
+
+                        <fieldset className='tags'>
+                            <label className="form-label" htmlFor="tags">Enter tags:</label>
+                            <input className="form-input" type="text" id="tags" name="tags" value={tags} onChange={(e) => setTags(e.currentTarget.value)} />
+                        </fieldset>
+
+                        <div className='add-btn-wrapper add'>
+                            <button onClick={handleContactSubmit} className="btn btn-add">Add contact</button>
                         </div>
-
-                        <div className="form-row">
-                            <fieldset>
-                                <label className="form-label" htmlFor="email">Enter email:</label>
-                                <input className="form-input" type="text" id="email" name="email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
-                            </fieldset>
-
-                            <fieldset>
-                                <label className="form-label" htmlFor="age">Enter age:</label>
-                                <input className="form-input" type="text" id="age" name="age" value={age} onChange={(e) => setAge(e.currentTarget.value)} />
-                            </fieldset>
-
-                            <fieldset>
-                                <label className="form-label" htmlFor="phoneNumber">Enter phone number:</label>
-                                <input className="form-input" type="text" id="phoneNumber" name="phoneNumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.currentTarget.value)} />
-                            </fieldset>
-
-                            <fieldset>
-                                <label className="form-label" htmlFor="avatar">Enter avatar:</label>
-                                <input className="form-input" type="text" id="avatar" name="avatar" value={avatar} onChange={(e) => setAvatar(e.currentTarget.value)} />
-                            </fieldset>
-
-                            <fieldset>
-                                <label className="form-label" htmlFor="link">Enter personal website:</label>
-                                <input className="form-input" type="text" id="link" name="link" value={link} onChange={(e) => setLink(e.currentTarget.value)} />
-                            </fieldset>
-
-                            <fieldset>
-                                <label className="form-label" htmlFor="tags">Enter tags:</label>
-                                <input className="form-input" type="text" id="tags" name="tags" value={tags} onChange={(e) => setTags(e.currentTarget.value)} />
-                            </fieldset>
-
+                        <div className='close-modal-wrapper close'>
+                            <button onClick={handleCloseModal} className="btn btn-add">Close</button>
                         </div>
                     </div>
-                    <div className='add-btn-wrapper'>
-                        <button onClick={handleContactSubmit} className="btn btn-add">Add contact</button>
-                    </div>
-                    <div className='close-modal-wrapper'>
-                        <button onClick={handleCloseModal} className="btn btn-add">Close</button>
-                    </div>
-                </div>
-            </div> : null}
+
+
+                </div> : null
+            }
 
             <div className='open-modal-wrapper'>
                 <button onClick={handleOpenModal} className="btn btn-add">Add a contact</button>
@@ -197,12 +199,14 @@ export const ContactDashboard = () => {
             <ContactList contacts={contacts} loading={loading} handleContactRemove={handleContactRemove} />
 
             {/* Show reset button if list contains at least one contact */}
-            {contacts.length > 0 && (
-                <div className='reset-btn-wrapper'>
-                    <button className="btn btn-reset" onClick={handleListReset}>Reset Contacts list.</button>
-                </div>
-            )}
-        </div>
+            {
+                contacts.length > 0 && (
+                    <div className='reset-btn-wrapper'>
+                        <button className="btn btn-reset" onClick={handleListReset}>Reset Contacts list.</button>
+                    </div>
+                )
+            }
+        </div >
 
     )
 }
