@@ -1,3 +1,94 @@
 .contact-list-wrapper {
-  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: center;
+  height: auto;
+  width: 100%;
+
+  .backlash {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(2, 1, 1, 0.52);
+
+    .contact-list-form {
+      display: grid;
+      height: 400px;
+      width: 700px;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 0px 15px;
+      text-align: center;
+      background-color: #516677;
+      color: white;
+      border-radius: 2%;
+      grid-template-areas:
+        "firstName lastName"
+        "email phoneNumber"
+        "age link"
+        "avatar tags"
+        "add close";
+      .firstName {
+        grid-area: firstName;
+      }
+      .lastName {
+        grid-area: lastName;
+      }
+      .email {
+        grid-area: email;
+      }
+      .phoneNumber {
+        grid-area: phoneNumber;
+      }
+      .age {
+        grid-area: age;
+      }
+
+      .link {
+        grid-area: link;
+      }
+      .tags {
+        grid-area: tags;
+      }
+      .space {
+        grid-area: space;
+      }
+      .avatar {
+        grid-area: avatar;
+      }
+      .add {
+        grid-area: add;
+      }
+      .close {
+        grid-area: close;
+      }
+
+      fieldset {
+        display: flex;
+        flex-direction: column;
+        border: none;
+
+        label {
+          margin-bottom: 5px;
+        }
+        input {
+          height: 4vh;
+          border-radius: 10px;
+          outline: none;
+          border: none;
+          box-sizing: border-box;
+          padding: 15px;
+          font-size: 15px;
+          color: #696969;
+          font-weight: 600;
+        }
+      }
+    }
+  }
 }
