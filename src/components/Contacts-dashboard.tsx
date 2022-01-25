@@ -181,7 +181,7 @@ export const ContactDashboard = () => {
                             <button onClick={handleContactSubmit} className="btn btn-add">Add contact</button>
                         </div>
                         <div className='close-modal-wrapper close'>
-                            <button onClick={handleCloseModal} className="btn btn-add">Close</button>
+                            <button onClick={handleCloseModal} className="btn btn-close">Close</button>
                         </div>
                     </div>
 
@@ -189,8 +189,20 @@ export const ContactDashboard = () => {
                 </div> : null
             }
 
-            <div className='open-modal-wrapper'>
-                <button onClick={handleOpenModal} className="btn btn-add">Add a contact</button>
+            <div className='btn-wrapper'>
+                <div>
+                    <button onClick={handleOpenModal} className="btn btn-add">Add a contact</button>
+                </div>
+
+                {
+                    contacts.length > 0 && (
+                        <div>
+                            <button className="btn btn-reset" onClick={handleListReset}>Reset Contacts list.</button>
+                        </div>
+
+                    )
+
+                }
             </div>
 
 
@@ -199,13 +211,7 @@ export const ContactDashboard = () => {
             <ContactList contacts={contacts} loading={loading} handleContactRemove={handleContactRemove} />
 
             {/* Show reset button if list contains at least one contact */}
-            {
-                contacts.length > 0 && (
-                    <div className='reset-btn-wrapper'>
-                        <button className="btn btn-reset" onClick={handleListReset}>Reset Contacts list.</button>
-                    </div>
-                )
-            }
+
         </div >
 
     )
