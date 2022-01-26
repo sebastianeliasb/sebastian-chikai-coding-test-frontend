@@ -15,11 +15,12 @@ interface ContactsListRowUI {
         link: string;
         tags: string;
     }
+    handleView: (id: number) => void;
     handleContactRemove: (id: number, firstName: string) => void;
 }
 
 export const ContactsListRow = (props: ContactsListRowUI) => (
-    <tr className="table-row">
+    <tr className="table-row" onClick={() => props.handleView(props.contact.id)}>
         {/* <td className="table-item">
             {props.position}
         </td> */}

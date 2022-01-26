@@ -6,6 +6,8 @@ import { ContactList } from './Contacts-list'
 
 // Import styles
 import "./style/contacts-dashboard/style.scss"
+import { ContactView } from './Contacts-view'
+
 
 // Create Contact component
 export const ContactDashboard = () => {
@@ -21,6 +23,8 @@ export const ContactDashboard = () => {
     const [modal, setModal] = useState(false)
     const [contacts, setContacts] = useState([])
     const [loading, setLoading] = useState(true)
+    const [viewInfo, setViewInfo] = useState(false)
+    const [contact, setContact] = useState([])
 
     // Fetch all contacts on initial render
     useEffect(() => {
@@ -30,7 +34,7 @@ export const ContactDashboard = () => {
 
     // Fetch all bcontacts
     const fetchContacts = async () => {
-        // Send GET request to 'bcontacts/all' endpoint
+        // Send GET request to 'contacts/all' endpoint
         axios
             .get('http://localhost:4001/contacts/all')
             .then(response => {
@@ -42,6 +46,26 @@ export const ContactDashboard = () => {
             })
             .catch(error => console.error(`There was an error retrieving the contacts: ${error}`))
     }
+
+    const handleView = async (id: number) => {
+        axios
+            .get('http://localhost:4001/contacts/all')
+            .then(response => {
+                const data = response.data
+                for (let i = 0; i < data.length; i++) {
+                    const index = data[i].id
+                    if (id === index) {
+                        // console.log(index)
+                        setViewInfo(true)
+                        setContact(index)
+                        console.log(contact)
+                    }
+                }
+            })
+            .catch(error => console.error(`There was an error retrieving the contacts: ${error}`))
+
+    }
+
 
     // Reset all input fields
     const handleInputsReset = () => {
@@ -85,7 +109,7 @@ export const ContactDashboard = () => {
             })
             .catch(error => console.error(`There was an error creating the ${firstName} error: ${error}`))
     }
-    // console.log(fetchContacts())
+
     // Submit new contact
     const handleContactSubmit = () => {
         // Check if all fields are filled
@@ -101,13 +125,15 @@ export const ContactDashboard = () => {
         }
     }
 
-    // Remove contact
+
+
     const handleContactRemove = (id: number, firstName: string) => {
         // Send PUT request to 'contacts/delete' endpoint
         axios
             .put('http://localhost:4001/contacts/delete', { id: id })
-            .then(() => {
+            .then((response) => {
                 console.log(`Contact ${firstName} removed.`)
+                console.log(response.data)
 
                 // Fetch all contacts to refresh
                 // the contacts on the row 
@@ -131,7 +157,7 @@ export const ContactDashboard = () => {
     return (
         <div className="contact-list-wrapper">
             {/* Form for creating new contact */}
-            {modal === true ?
+            {modal ?
                 <div className='backlash'>
                     <div className="contact-list-form" onSubmit={handleContactSubmit}>
 
@@ -204,13 +230,15 @@ export const ContactDashboard = () => {
 
                 }
             </div>
-
+            {/* Show reset button if list contains at least one contact */}
 
 
             {/* Render contacts list component */}
-            <ContactList contacts={contacts} loading={loading} handleContactRemove={handleContactRemove} />
+            <ContactList contacts={contacts} loading={loading} handleContactRemove={handleContactRemove} handleView={handleView} />
+            {/* {viewInfo ? (<ContactView contacts={contacts} loading={loading} />) : null} */}
 
-            {/* Show reset button if list contains at least one contact */}
+
+
 
         </div >
 
