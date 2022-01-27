@@ -23,6 +23,7 @@ interface ContactUI {
 interface ContactListUI {
     contacts: ContactUI[];
     loading: boolean;
+    handleView: (id: number) => void;
     handleContactRemove: (id: number, firstName: string) => void;
 }
 
@@ -67,6 +68,7 @@ export const ContactList = (props: ContactListUI) => {
                                 contact={contact}
                                 position={idx + 1}
                                 handleContactRemove={props.handleContactRemove}
+                                handleView={props.handleView}
                             />
                         )
                         )
