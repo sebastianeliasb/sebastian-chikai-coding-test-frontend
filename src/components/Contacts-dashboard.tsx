@@ -24,13 +24,15 @@ export const ContactDashboard = () => {
     const [contacts, setContacts] = useState([])
     const [loading, setLoading] = useState(true)
     const [viewInfo, setViewInfo] = useState(false)
-    const [contact, setContact] = useState([])
+    const [contact, setContact] = useState<any[]>([])
 
     // Fetch all contacts on initial render
     useEffect(() => {
         fetchContacts()
 
+
     }, [])
+
 
     // Fetch all bcontacts
     const fetchContacts = async () => {
@@ -47,22 +49,21 @@ export const ContactDashboard = () => {
             .catch(error => console.error(`There was an error retrieving the contacts: ${error}`))
     }
 
-    const handleView = async (id: number) => {
+    const handleGetIndex = async (id: number) => {
         axios
-            .get('http://localhost:4001/contacts/all')
+            .put('http://localhost:4001/contacts/contact', { id: id })
             .then(response => {
-                const data = response.data
-                for (let i = 0; i < data.length; i++) {
-                    const index = data[i].id
-                    if (id === index) {
-                        // console.log(index)
-                        setViewInfo(true)
-                        setContact(index)
-                        console.log(contact)
-                    }
-                }
+                const data = response.data.contactData[0].id;
+                setContact(data)
+                console.log(data)
             })
             .catch(error => console.error(`There was an error retrieving the contacts: ${error}`))
+
+    }
+
+    const handleView = (id: number) => {
+        handleGetIndex(id)
+        setViewInfo(!viewInfo)
 
     }
 
@@ -79,12 +80,9 @@ export const ContactDashboard = () => {
         setTags('')
     }
 
-    const handleOpenModal = () => {
-        setModal(true)
-    }
-    const handleCloseModal = () => {
-        setModal(false)
-    }
+    const handleToggleModal = () => setModal(!modal);
+
+
 
     // Create new contacts
     const handleContactCreate = () => {
@@ -121,7 +119,7 @@ export const ContactDashboard = () => {
 
             // Reset all input fields
             handleInputsReset()
-            handleCloseModal()
+            handleToggleModal()
         }
     }
 
@@ -207,7 +205,7 @@ export const ContactDashboard = () => {
                             <button onClick={handleContactSubmit} className="btn btn-add">Add contact</button>
                         </div>
                         <div className='close-modal-wrapper close'>
-                            <button onClick={handleCloseModal} className="btn btn-close">Close</button>
+                            <button onClick={handleToggleModal} className="btn btn-close">Close</button>
                         </div>
                     </div>
 
@@ -217,7 +215,7 @@ export const ContactDashboard = () => {
 
             <div className='btn-wrapper'>
                 <div>
-                    <button onClick={handleOpenModal} className="btn btn-add">Add a contact</button>
+                    <button onClick={handleToggleModal} className="btn btn-add">Add a contact</button>
                 </div>
 
                 {
@@ -235,7 +233,7 @@ export const ContactDashboard = () => {
 
             {/* Render contacts list component */}
             <ContactList contacts={contacts} loading={loading} handleContactRemove={handleContactRemove} handleView={handleView} />
-            {/* {viewInfo ? (<ContactView contacts={contacts} loading={loading} />) : null} */}
+            {viewInfo ? <ContactView data-id={contact} contacts={contacts} loading={loading} /> : null}
 
 
 

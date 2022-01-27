@@ -21,9 +21,7 @@ interface ContactsListRowUI {
 
 export const ContactsListRow = (props: ContactsListRowUI) => (
     <tr className="table-row" onClick={() => props.handleView(props.contact.id)}>
-        {/* <td className="table-item">
-            {props.position}
-        </td> */}
+
 
         <td className="table-item">
             {props.contact.firstName}

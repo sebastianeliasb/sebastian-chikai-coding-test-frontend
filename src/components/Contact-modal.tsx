@@ -18,7 +18,9 @@ interface ContactModalUI {
 }
 
 export const ContactModal = (props: ContactModalUI) => (
+
     <>
+
         <div> {props.contact.firstName}</div>
         <div>{props.contact.lastName}</div>
         <div>  {props.contact.email}</div>

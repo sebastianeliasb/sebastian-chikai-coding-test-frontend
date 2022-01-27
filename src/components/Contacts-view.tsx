@@ -32,6 +32,7 @@ export const ContactView = (props: Contact) => {
             </div>
             <div>
                 {
+
                     props.contacts.length > 0 ? (
                         props.contacts.map((contact: ContactViewUI, idx) => (
 
@@ -40,12 +41,17 @@ export const ContactView = (props: Contact) => {
                                 contact={contact}
                                 position={idx}
 
+
                             />
+
                         )
+
                         )
                     ) : null
+
                 }
             </div>
+
         </>
 
     )
