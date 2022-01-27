@@ -46,6 +46,27 @@ exports.contactsCreate = async (req, res) => {
     });
 };
 
+// Get specific contact
+exports.getContact = async (req, res) => {
+  // Find specific contact in the database and remove it
+
+  knex("contacts")
+    .where("id", req.body.id)
+    // .first() // find correct record based on id
+    .then((contactData) => {
+      // Send a success message in response
+      res.json({
+        contactData,
+        message: `id : ${req.body.id}`,
+      });
+    })
+    .catch((err) => {
+      // Send a error message in response
+      res.json({
+        message: `There was an error fetch '${req.body.id}' contact: ${err}`,
+      });
+    });
+};
 // Remove specific contacts
 exports.contactsDelete = async (req, res) => {
   // Find specific contact in the database and remove it
@@ -55,7 +76,7 @@ exports.contactsDelete = async (req, res) => {
     .then(() => {
       // Send a success message in response
       res.json({
-        message: `Contact ${req.body.firstName}' ${req.body.lastName} deleted.`,
+        message: `Contact ${req.body.firstName} ${req.body.lastName} deleted.`,
       });
     })
     .catch((err) => {
