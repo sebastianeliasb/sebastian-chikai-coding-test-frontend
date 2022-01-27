@@ -12,6 +12,8 @@ const router = express.Router();
 // this means that '/all' translates to '/contacts/all'
 router.get("/all", contactsRoutes.contactsAll);
 
+router.put("/contact", contactsRoutes.getContact);
+
 // Add route for POST request to create new contact
 // In server.js, contacts route is specified as '/contacts'
 // this means that '/create' translates to '/contacts/create'
