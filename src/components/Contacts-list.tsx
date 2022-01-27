@@ -53,6 +53,7 @@ export const ContactList = (props: ContactListUI) => {
                     <th className="table-head-item">Personal Website</th>
 
                     <th className="table-head-item">Tags</th>
+                    <th className="table-head-item"></th>
 
 
                 </tr>

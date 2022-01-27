@@ -1,6 +1,8 @@
 .table {
   height: auto;
   width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
 
   tbody,
   thead {
@@ -18,6 +20,8 @@
   .table-row {
     height: 65px;
     cursor: pointer;
+
+    border: 2px solid rgba(32, 81, 114, 0.644);
     &:hover {
       transform: scale(1.01);
       background-color: #1d3b53;
