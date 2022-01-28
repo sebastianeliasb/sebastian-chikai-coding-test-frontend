@@ -15,12 +15,13 @@ interface ContactsListRowUI {
         link: string;
         tags: string;
     }
-    handleView: (id: number) => void;
+    handleView: (id: number, firstName: string) => void;
     handleContactRemove: (id: number, firstName: string) => void;
+
 }
 
 export const ContactsListRow = (props: ContactsListRowUI) => (
-    <tr className="table-row" onClick={() => props.handleView(props.contact.id)}>
+    <tr className="table-row" >
 
 
         <td className="table-item">
@@ -58,6 +59,7 @@ export const ContactsListRow = (props: ContactsListRowUI) => (
 
             </div>
             <div className="btn-edit"
+                onClick={() => props.handleView(props.contact.id, props.contact.firstName)}
             >
             </div>
         </td >
