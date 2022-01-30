@@ -6,7 +6,7 @@ import { ContactList } from './Contacts-list'
 
 // Import styles
 import "./style/contacts-dashboard/style.scss"
-import { ContactModal } from './Contact-modal'
+import { ContactModalEdit } from './Contact-modal-edit'
 
 
 // Create Contact component
@@ -20,13 +20,12 @@ export const ContactDashboard = () => {
     const [avatar, setAvatar] = useState('')
     const [link, setLink] = useState('')
     const [tags, setTags] = useState('')
-    const [modal, setModal] = useState(false)
+    const [modalAdd, setModalAdd] = useState(false)
+    const [modalEdit, setModalEdit] = useState(false)
     const [contacts, setContacts] = useState([])
     const [loading, setLoading] = useState(true)
-
     const [viewInfo, setViewInfo] = useState(false)
-    const [contact, setContact] = useState({})
-    const [isOpenModal, setIsOpenModal] = useState(false)
+
 
 
     //OBJECT.keys
@@ -43,7 +42,6 @@ export const ContactDashboard = () => {
     }
 
     const [selectedContact, setSelectedContact] = useState(emptyContactToEdit)
-    const [editedContact, setEditedContact] = useState(selectedContact)
 
     // Fetch all contacts on initial render
     useEffect(() => {
@@ -88,7 +86,6 @@ export const ContactDashboard = () => {
                 const contactResponse = (response.data.contactData[0])
                 console.log(contactResponse)
                 setSelectedContact(contactResponse)
-                console.log(contact)
 
             })
             .catch(error => console.error(`There was an error retrieving the contacts: ${error}`))
@@ -122,7 +119,7 @@ export const ContactDashboard = () => {
     }
 
     const handleOpenEditModal = (isOpened: boolean, contactId?: number) => {
-        setIsOpenModal(isOpened)
+        setModalEdit(isOpened)
         if (contactId) {
             const contactById = handleContactSearchById(contactId)
             setSelectedContact(contactById)
@@ -130,7 +127,7 @@ export const ContactDashboard = () => {
     }
     const handleCloseModal = (e: React.MouseEvent<HTMLButtonElement>) => {
         console.log("Entering");
-        setIsOpenModal(!isOpenModal);
+        setModalEdit(!modalEdit);
         setSelectedContact(emptyContactToEdit);
 
     }
@@ -160,7 +157,7 @@ export const ContactDashboard = () => {
         setTags('')
     }
 
-    const handleToggleModal = () => setModal(!modal);
+    const handleToggleModal = () => setModalAdd(!modalAdd);
 
 
     // Create new contacts
@@ -235,7 +232,7 @@ export const ContactDashboard = () => {
     return (
         <div className="contact-list-wrapper">
             {/* Form for creating new contact */}
-            {modal ?
+            {modalAdd ?
                 <div className='backlash'>
                     <div className="contact-list-form" onSubmit={handleContactSubmit}>
 
@@ -298,7 +295,7 @@ export const ContactDashboard = () => {
 
                 </div> : null
             }
-            {!isOpenModal &&
+            {!modalEdit &&
                 <div className='btn-wrapper'>
                     <div>
                         <button onClick={handleToggleModal} className="btn btn-add">Add a contact</button>
@@ -319,14 +316,14 @@ export const ContactDashboard = () => {
 
 
             {/* Render contacts list component */}
-            {isOpenModal ?
+            {modalEdit ?
                 (
                     <>
 
 
                         {selectedContact?.id &&
 
-                            <ContactModal selectedContact={selectedContact} handleCloseModal={handleCloseModal} />
+                            <ContactModalEdit selectedContact={selectedContact} handleCloseModal={handleCloseModal} />
 
                         }
                     </>

@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Creation of interface
-type contactModalUI = {
+type contactModalEditUI = {
     // position: number;
     selectedContact: {
         id: number;
@@ -21,7 +21,7 @@ type contactModalUI = {
 }
 
 
-export const ContactModal = ({ selectedContact, handleCloseModal }: contactModalUI) => {
+export const ContactModalEdit = ({ selectedContact, handleCloseModal }: contactModalEditUI) => {
     return (<div className="contact-list-wrapper" >
 
 
@@ -67,8 +67,13 @@ export const ContactModal = ({ selectedContact, handleCloseModal }: contactModal
                     <label className="form-label" htmlFor="tags">Enter tags:</label>
                     <input className="form-input" type="text" id="tags" name="tags" value={selectedContact.tags} />
                 </fieldset>
-                <button onClick={handleCloseModal}>Close</button>
-                <button>SAVE</button>
+                <div className='add-btn-wrapper add'>
+                    <button className="btn btn-add">Save</button>
+                </div>
+                <div className='close-modal-wrapper close'>
+                    <button onClick={handleCloseModal} className="btn btn-close">Close</button>
+                </div>
+
 
 
 

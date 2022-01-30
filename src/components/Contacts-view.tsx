@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Import components
-import { ContactModal } from "./Contact-modal"
+import { ContactModalEdit } from "./Contact-modal-edit"
 
 interface ContactViewUI {
     id: number;
@@ -36,7 +36,7 @@ export const ContactView = (props: Contact) => {
                 props.contacts.length > 0 ? (
                     props.contacts.map((contact: ContactViewUI, idx) => (
 
-                        <ContactModal
+                        <ContactModalEdit
                             handleCloseModal={props.handleCloseModal}
                             key={contact.id}
                             selectedContact={contact}
