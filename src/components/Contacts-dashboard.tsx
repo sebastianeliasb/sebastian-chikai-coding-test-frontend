@@ -6,7 +6,7 @@ import { ContactList } from './Contacts-list'
 
 // Import styles
 import "./style/contacts-dashboard/style.scss"
-import { ContactView } from './Contacts-view'
+import { ContactModal } from './Contact-modal'
 
 
 // Create Contact component
@@ -23,15 +23,27 @@ export const ContactDashboard = () => {
     const [modal, setModal] = useState(false)
     const [contacts, setContacts] = useState([])
     const [loading, setLoading] = useState(true)
+
     const [viewInfo, setViewInfo] = useState(false)
     const [contact, setContact] = useState({})
+    const [isOpenModal, setIsOpenModal] = useState(false)
 
+
+    //OBJECT.keys
     const emptyContactToEdit = {
         id: 0,
         firstName: '',
         lastName: '',
-        email: ''
+        email: '',
+        age: 0,
+        phoneNumber: "",
+        avatar: "",
+        link: "",
+        tags: "",
     }
+
+    const [selectedContact, setSelectedContact] = useState(emptyContactToEdit)
+    const [editedContact, setEditedContact] = useState(selectedContact)
 
     // Fetch all contacts on initial render
     useEffect(() => {
@@ -39,13 +51,15 @@ export const ContactDashboard = () => {
 
 
     }, [])
+
+
+
     useEffect(() => {
 
+        console.log(selectedContact);
 
 
-    }, [])
-    const [isOpenModal, setIsOpenModal] = useState(false)
-    const [selectedContact, setSelectedContact] = useState(emptyContactToEdit)
+    }, [selectedContact])
 
     // Fetch all contacts
     const fetchContacts = async () => {
@@ -85,13 +99,17 @@ export const ContactDashboard = () => {
     // TODO: axios getContact request
     const handleContactSearchById = (id: number) => {
 
-        // fake response to test that the id is changing
 
         const contactToEdit = {
             id: id,
             firstName: "",
             lastName: '',
-            email: ''
+            email: '',
+            age: 0,
+            phoneNumber: "",
+            avatar: "",
+            link: "",
+            tags: "",
         }
 
         return contactToEdit
@@ -110,19 +128,25 @@ export const ContactDashboard = () => {
             setSelectedContact(contactById)
         }
     }
-    const handleCloseModal = () => {
-        setIsOpenModal(false)
-        setSelectedContact(emptyContactToEdit)
+    const handleCloseModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+        console.log("Entering");
+        setIsOpenModal(!isOpenModal);
+        setSelectedContact(emptyContactToEdit);
+
     }
+    // type valuesToUpdateProps = {
+    //     key: string, value: string | number
+    // }
+    //TODO Create type CONTACT
+    // const handleSaveContactInfo = (valuesToUpdate: valuesToUpdateProps) => {
 
+    //     const { key, value } = valuesToUpdate;
+    //     setEditedContact((prevContact) => ({
+    //         ...prevContact,
+    //         [key]: value
+    //     }));
 
-    const handleSaveContactInfo = () => {
-        // get input values
-        //  close the modal
-        // put of the contact based on selectecContactToEdit stored on useState
-        // refresh view (I guess)
-    }
-
+    // }
 
     // Reset all input fields
     const handleInputsReset = () => {
@@ -298,21 +322,12 @@ export const ContactDashboard = () => {
             {isOpenModal ?
                 (
                     <>
-                        <div className='btn-wrapper'>
-                            <div>
-                                <button className="btn btn-add" onClick={handleSaveContactInfo}>Save contact info</button>
-                            </div>
-                            <div>
-                                <button className="btn btn-reset" onClick={handleCloseModal}>Exit editing modal</button>
-                            </div>
-                        </div>
-                        {selectedContact?.id > 0 &&
-                            <>
-                                <h3>Contact Id: {selectedContact?.id}</h3>
-                                <input type="text" defaultValue={selectedContact?.firstName}></input>
-                                <input type="text" defaultValue={selectedContact?.lastName}></input>
-                                <input type="text" defaultValue={selectedContact?.email}></input>
-                            </>
+
+
+                        {selectedContact?.id &&
+
+                            <ContactModal selectedContact={selectedContact} handleCloseModal={handleCloseModal} />
+
                         }
                     </>
                 ) :
