@@ -32,7 +32,7 @@ exports.contactsCreate = async (req, res) => {
       link: req.body.link,
       tags: req.body.tags,
     })
-    .then(() => {
+    .then((response) => {
       // Send a success message in response
       res.json({
         message: `Contact '${req.body.firstName}' ${req.body.lastName} created.`,
@@ -67,6 +67,38 @@ exports.getContact = async (req, res) => {
       });
     });
 };
+
+exports.contactEdit = async (req, res) => {
+  console.log(req.body, "body");
+  knex("contacts")
+    .update({
+      // insert new record, a contact
+      firstName: req.body.contact.firstName,
+      lastName: req.body.contact.lastName,
+      email: req.body.contact.email,
+      age: req.body.contact.age,
+      phoneNumber: req.body.contact.phoneNumber,
+      avatar: req.body.contact.avatar,
+      link: req.body.contact.link,
+      tags: req.body.contact.tags,
+    })
+
+    .where("id", req.body.contact.id) // find correct record based on id
+
+    .then(() => {
+      // Send a success message in response
+      res.json({
+        message: `Contact ${req.body.contact.firstName} ${req.body.contact.lastName} edited.`,
+      });
+    })
+    .catch((err) => {
+      // Send a error message in response
+      res.json({
+        message: `There was an error editing '${req.body.contact.firstName}' ${req.body.contact.lastName} contact: ${err}`,
+      });
+    });
+};
+
 // Remove specific contacts
 exports.contactsDelete = async (req, res) => {
   // Find specific contact in the database and remove it

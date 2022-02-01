@@ -8,11 +8,23 @@ import { ContactList } from './Contacts-list'
 import "./style/contacts-dashboard/style.scss"
 import { ContactModalEdit } from './Contact-modal-edit'
 
+type contactDetails1 = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    age?: number | string;
+    phoneNumber?: string;
+    avatar?: string;
+    link?: string;
+    tags?: string;
+}
 
 // Create Contact component
 export const ContactDashboard = () => {
     // Prepare states
-    const contactDetails = {
+
+    let contactDetails = {
         id: 0,
         firstName: "",
         lastName: "",
@@ -24,17 +36,14 @@ export const ContactDashboard = () => {
         tags: ""
     }
 
-    const [{ firstName, lastName, email, age, phoneNumber, avatar, link, tags }, setContact] = useState(contactDetails)
+
+    const [contact, setContact] = useState(contactDetails) // Input contact => Disapears on refresh
+    const [selectedContact, setSelectedContact] = useState<contactDetails1>(contactDetails) //Selected Contact to edit
     const [modalAdd, setModalAdd] = useState(false)
     const [modalEdit, setModalEdit] = useState(false)
-    const [contacts, setContacts] = useState([])
+    const [contacts, setContacts] = useState([]) // All contacts => Response from DB, can't access
     const [loading, setLoading] = useState(true)
     const [viewInfo, setViewInfo] = useState(false)
-    const [selectedContact, setSelectedContact] = useState(contactDetails)
-
-    //OBJECT.keys
-
-
 
 
     // Fetch all contacts on initial render
@@ -48,6 +57,48 @@ export const ContactDashboard = () => {
 
     }, [selectedContact])
 
+
+
+    // Create new contacts
+    const handleContactCreate = () => {
+        // Send POST request to 'contacts/create' endpoint
+        axios
+            .post('http://localhost:4001/contacts/create', {
+                firstName: contact.firstName,
+                lastName: contact.lastName,
+                email: contact.email,
+                age: contact.age,
+                phoneNumber: contact.phoneNumber,
+                avatar: contact.avatar,
+                link: contact.link,
+                tags: contact.tags
+            })
+            .then(res => {
+                // console.log(res.data)
+
+                // Fetch all contactss to refresh
+                // the contacts on the row 
+                fetchContacts()
+
+            })
+            .catch(error => console.error(`There was an error creating the ${contact.firstName} error: ${error}`))
+
+
+    }
+    // Submit new contact
+    const handleContactSubmit = () => {
+        // Check if all fields are filled
+        if (contact.firstName.length > 0 && contact.lastName.length > 0 && contact.email.length > 0) {
+            // Create new contact
+            handleContactCreate()
+
+            console.info(`Contact ${contact.firstName} ${contact.lastName} added.`)
+
+            // Reset all input fields
+            handleInputsReset()
+            handleToggleModal()
+        }
+    }
 
     // Fetch all contacts
     const fetchContacts = async () => {
@@ -69,18 +120,65 @@ export const ContactDashboard = () => {
         axios
             .put('http://localhost:4001/contacts/contact', {
                 id: id,
-                firstName: firstName,
+                firstName: contact.firstName,
 
             })
             .then(response => {
                 const contactResponse = (response.data.contactData[0])
-                console.log(contactResponse)
+                // console.log(contactResponse)
                 setSelectedContact(contactResponse)
 
             })
             .catch(error => console.error(`There was an error retrieving the contacts: ${error}`))
 
 
+    }
+
+    const editContactDb = (contact: contactDetails1) => {
+        axios
+            .put('http://localhost:4001/contacts/edit', {
+                contact
+            })
+            .then(res => {
+                // console.log(res.data)
+
+                console.log(res.data)
+                // Fetch all contactss to refresh
+                // the contacts on the row 
+                fetchContacts()
+
+            })
+            .catch(error => console.error(`There was an error creating the ${contact.firstName} error: ${error}`))
+
+
+    }
+
+    const handleEditContact = (e: React.MouseEvent<HTMLButtonElement>) => {
+
+
+        setModalEdit(!modalEdit)
+        // console.log(contact)
+        console.log(selectedContact);
+
+        editContactDb(selectedContact)
+
+
+    }
+
+
+    const handleContactRemove = (id: number, firstName: string) => {
+        // Send PUT request to 'contacts/delete' endpoint
+        axios
+            .put('http://localhost:4001/contacts/delete', { id: id })
+            .then((response) => {
+                console.log(`Contact ${firstName} removed.`)
+                console.log(response.data)
+
+                // Fetch all contacts to refresh
+                // the contacts on the row 
+                fetchContacts()
+            })
+            .catch(error => console.error(`There was an error removing the ${firstName} error: ${error}`))
     }
 
     const handleContactSearchById = (id: number) => {
@@ -104,7 +202,6 @@ export const ContactDashboard = () => {
         handleGetContact(id)
         setViewInfo(!viewInfo)
         id !== 0 ? handleOpenEditModal(true, id) : handleOpenEditModal(false)
-        console.log(id)
     }
 
     const handleOpenEditModal = (isOpened: boolean, contactId?: number) => {
@@ -112,8 +209,10 @@ export const ContactDashboard = () => {
         if (contactId) {
             const contactById = handleContactSearchById(contactId)
             setSelectedContact(contactById)
+            console.log(selectedContact);
         }
     }
+
     const handleCloseModal = (e: React.MouseEvent<HTMLButtonElement>) => {
         console.log("Entering");
         setModalEdit(!modalEdit);
@@ -121,7 +220,22 @@ export const ContactDashboard = () => {
 
     }
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        // let newValue = name === 'age' ? parseFloat(value) : value
+
+        console.log({ selectedContact });
+
+        setSelectedContact((selectedContact) => ({ ...selectedContact, [name]: value }))
+        console.log({ selectedContact });
+
+        console.log(e.target.value);
+
+        console.log(e.target);
+
+
+    }
+    const handleOnSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
         setContact((prevState) => ({ ...prevState, [name]: value }))
 
@@ -135,59 +249,14 @@ export const ContactDashboard = () => {
     const handleToggleModal = () => setModalAdd(!modalAdd);
 
 
-    // Create new contacts
-    const handleContactCreate = () => {
-        // Send POST request to 'contacts/create' endpoint
-        axios
-            .post('http://localhost:4001/contacts/create', {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                age: age,
-                phoneNumber: phoneNumber,
-                avatar: avatar,
-                link: link,
-                tags: tags
-            })
-            .then(res => {
-                console.log(res.data)
 
-                // Fetch all contactss to refresh
-                // the contacts on the row 
-                fetchContacts()
-            })
-            .catch(error => console.error(`There was an error creating the ${firstName} error: ${error}`))
-    }
 
-    // Submit new contact
-    const handleContactSubmit = () => {
-        // Check if all fields are filled
-        if (firstName.length > 0 && lastName.length > 0 && email.length > 0) {
-            // Create new contact
-            handleContactCreate()
 
-            console.info(`Contact ${firstName} ${lastName} added.`)
 
-            // Reset all input fields
-            handleInputsReset()
-            handleToggleModal()
-        }
-    }
 
-    const handleContactRemove = (id: number, firstName: string) => {
-        // Send PUT request to 'contacts/delete' endpoint
-        axios
-            .put('http://localhost:4001/contacts/delete', { id: id })
-            .then((response) => {
-                console.log(`Contact ${firstName} removed.`)
-                console.log(response.data)
 
-                // Fetch all contacts to refresh
-                // the contacts on the row 
-                fetchContacts()
-            })
-            .catch(error => console.error(`There was an error removing the ${firstName} error: ${error}`))
-    }
+
+
 
     // Reset contacts list (remove all contacts)
     const handleListReset = () => {
@@ -200,6 +269,8 @@ export const ContactDashboard = () => {
             })
             .catch(error => console.error(`There was an error resetting the contact list: ${error}`))
     }
+
+
 
     // type valuesToUpdateProps = {
     //     key: string, value: string | number
@@ -216,6 +287,7 @@ export const ContactDashboard = () => {
     // }
 
 
+
     return (
         <div className="contact-list-wrapper">
             {/* Form for creating new contact */}
@@ -227,48 +299,55 @@ export const ContactDashboard = () => {
                         <fieldset className='firstName'>
                             <label className="form-label" htmlFor="firstName">Enter first name:</label>
                             <input className="form-input" type="text" id="firstName" name="firstName"
-                                onChange={onChange} />
+                                onChange={handleOnChange} />
                         </fieldset>
                         <fieldset className='lastName'>
                             <label className="form-label" htmlFor="lastName">Enter last name:</label>
                             <input className="form-input" type="text" id="lastName" name="lastName"
-                                onChange={onChange} />
+                                onChange={handleOnChange} />
                         </fieldset>
                         <fieldset className='email'>
                             <label className="form-label" htmlFor="email">Enter email:</label>
                             <input className="form-input" type="text" id="email" name="email"
-                                onChange={onChange} />
+                                onChange={handleOnChange} />
                         </fieldset>
                         <fieldset className='phoneNumber'>
                             <label className="form-label" htmlFor="phoneNumber">Enter phone number:</label>
+
                             <input className="form-input" type="text" id="phoneNumber" name="phoneNumber"
-                                onChange={onChange} />
+                                onChange={handleOnChange} />
                         </fieldset>
 
 
                         <fieldset className='age'>
                             <label className="form-label" htmlFor="age">Enter age:</label>
                             <input className="form-input" type="text" id="age" name="age"
-                                onChange={onChange} />
+                                onChange={handleOnChange} />
                         </fieldset>
                         <fieldset className='link'>
                             <label className="form-label" htmlFor="link">Enter personal website:</label>
                             <input className="form-input" type="text" id="link" name="link"
-                                onChange={onChange} />
+                                onChange={handleOnChange} />
                         </fieldset>
 
 
                         <fieldset className='avatar'>
                             <label className="form-label" htmlFor="avatar">Enter avatar:</label>
                             <input className="form-input" type="text" id="avatar" name="avatar"
-                                onChange={onChange} />
+                                onChange={handleOnChange} />
                         </fieldset>
 
 
                         <fieldset className='tags'>
                             <label className="form-label" htmlFor="tags">Enter tags:</label>
-                            <input className="form-input" type="text" id="tags" name="tags"
-                                onChange={onChange} />
+                            <select className="form-input" id="tags" name="tags"
+                                onChange={handleOnSelect}>
+                                <option value="select">Tags: </option>
+                                <option value="Family">Family</option>
+                                <option value="Work">Work</option>
+                                <option value="Personal">Personal</option>
+
+                            </select>
                         </fieldset>
 
                         <div className='add-btn-wrapper add'>
@@ -310,7 +389,7 @@ export const ContactDashboard = () => {
 
                         {selectedContact?.id &&
 
-                            <ContactModalEdit selectedContact={selectedContact} handleCloseModal={handleCloseModal} />
+                            <ContactModalEdit selectedContact={selectedContact} handleCloseModal={handleCloseModal} handleEditContact={handleEditContact} handleOnChange={handleOnChange} />
 
                         }
                     </>

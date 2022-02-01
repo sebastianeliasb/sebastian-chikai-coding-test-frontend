@@ -9,11 +9,11 @@ interface ContactViewUI {
     firstName: string;
     lastName: string;
     email: string;
-    age: number;
-    phoneNumber: string;
-    avatar: string;
-    link: string;
-    tags: string;
+    age?: number | string;
+    phoneNumber?: string;
+    avatar?: string;
+    link?: string;
+    tags?: string;
 
 }
 
@@ -21,6 +21,9 @@ interface Contact {
     contacts: ContactViewUI[];
     loading: boolean;
     handleCloseModal: (e: React.MouseEvent<HTMLButtonElement>) => void
+    handleEditContact: (e: React.MouseEvent<HTMLButtonElement>) => void
+    handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+
 
 
 }
@@ -37,7 +40,9 @@ export const ContactView = (props: Contact) => {
                     props.contacts.map((contact: ContactViewUI, idx) => (
 
                         <ContactModalEdit
+                            handleOnChange={props.handleOnChange}
                             handleCloseModal={props.handleCloseModal}
+                            handleEditContact={props.handleEditContact}
                             key={contact.id}
                             selectedContact={contact}
 

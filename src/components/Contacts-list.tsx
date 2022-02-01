@@ -13,7 +13,7 @@ interface ContactUI {
     firstName: string;
     lastName: string;
     email: string;
-    age: string;
+    age: number;
     phoneNumber: string;
     avatar: string;
     link: string;

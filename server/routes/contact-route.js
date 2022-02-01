@@ -14,6 +14,7 @@ router.get("/all", contactsRoutes.contactsAll);
 
 router.put("/contact", contactsRoutes.getContact);
 
+router.put("/edit", contactsRoutes.contactEdit);
 // Add route for POST request to create new contact
 // In server.js, contacts route is specified as '/contacts'
 // this means that '/create' translates to '/contacts/create'
