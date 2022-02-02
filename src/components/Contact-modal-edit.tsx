@@ -6,9 +6,9 @@ type contactModalEditUI = {
     // position: number;
     selectedContact: {
         id: number;
-        firstName: string;
-        lastName: string;
-        email: string;
+        firstName?: string;
+        lastName?: string;
+        email?: string;
         age?: number | string;
         phoneNumber?: string;
         avatar?: string;
@@ -16,14 +16,14 @@ type contactModalEditUI = {
         tags?: string;
 
     }
-    handleCloseModal: (e: React.MouseEvent<HTMLButtonElement>) => void
+    handleCloseEditModal: (e: React.MouseEvent<HTMLButtonElement>) => void
     handleEditContact: (e: React.MouseEvent<HTMLButtonElement>) => void
     handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     // handleSaveContactInfo: (editedContact) => void
 }
 
 
-export const ContactModalEdit = ({ selectedContact, handleCloseModal, handleEditContact, handleOnChange }: contactModalEditUI) => {
+export const ContactModalEdit = ({ selectedContact, handleCloseEditModal, handleEditContact, handleOnChange }: contactModalEditUI) => {
     return (<div className="contact-list-wrapper" >
 
 
@@ -73,7 +73,7 @@ export const ContactModalEdit = ({ selectedContact, handleCloseModal, handleEdit
                     <button className="btn btn-add" onClick={handleEditContact}>Save</button>
                 </div>
                 <div className='close-modal-wrapper close'>
-                    <button onClick={handleCloseModal} className="btn btn-close">Close</button>
+                    <button onClick={handleCloseEditModal} className="btn btn-close">Close</button>
                 </div>
 
 

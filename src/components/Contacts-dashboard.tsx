@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
 // Import components
 import { ContactList } from './Contacts-list'
-
+import { ContactModalEdit } from './Contact-modal-edit'
 // Import styles
 import "./style/contacts-dashboard/style.scss"
-import { ContactModalEdit } from './Contact-modal-edit'
 
-type contactDetails1 = {
+
+type ContactInfo = {
     id: number;
     firstName: string;
     lastName: string;
@@ -38,7 +37,7 @@ export const ContactDashboard = () => {
 
 
     const [contact, setContact] = useState(contactDetails) // Input contact => Disapears on refresh
-    const [selectedContact, setSelectedContact] = useState<contactDetails1>(contactDetails) //Selected Contact to edit
+    const [selectedContact, setSelectedContact] = useState<ContactInfo>(contactDetails) //Selected Contact to edit
     const [modalAdd, setModalAdd] = useState(false)
     const [modalEdit, setModalEdit] = useState(false)
     const [contacts, setContacts] = useState([]) // All contacts => Response from DB, can't access
@@ -64,14 +63,14 @@ export const ContactDashboard = () => {
         // Send POST request to 'contacts/create' endpoint
         axios
             .post('http://localhost:4001/contacts/create', {
-                firstName: contact.firstName,
-                lastName: contact.lastName,
-                email: contact.email,
-                age: contact.age,
-                phoneNumber: contact.phoneNumber,
-                avatar: contact.avatar,
-                link: contact.link,
-                tags: contact.tags
+                firstName: selectedContact.firstName,
+                lastName: selectedContact.lastName,
+                email: selectedContact.email,
+                age: selectedContact.age,
+                phoneNumber: selectedContact.phoneNumber,
+                avatar: selectedContact.avatar,
+                link: selectedContact.link,
+                tags: selectedContact.tags
             })
             .then(res => {
                 // console.log(res.data)
@@ -81,23 +80,23 @@ export const ContactDashboard = () => {
                 fetchContacts()
 
             })
-            .catch(error => console.error(`There was an error creating the ${contact.firstName} error: ${error}`))
+            .catch(error => console.error(`There was an error creating the ${selectedContact.firstName} error: ${error}`))
 
 
     }
     // Submit new contact
     const handleContactSubmit = () => {
         // Check if all fields are filled
-        if (contact.firstName.length > 0 && contact.lastName.length > 0 && contact.email.length > 0) {
-            // Create new contact
-            handleContactCreate()
 
-            console.info(`Contact ${contact.firstName} ${contact.lastName} added.`)
+        // Create new contact
+        handleContactCreate()
 
-            // Reset all input fields
-            handleInputsReset()
-            handleToggleModal()
-        }
+        console.info(`Contact ${selectedContact.firstName} ${selectedContact.lastName} added.`)
+
+        // Reset all input fields
+        handleInputsReset()
+        handleToggleModal()
+
     }
 
     // Fetch all contacts
@@ -134,7 +133,7 @@ export const ContactDashboard = () => {
 
     }
 
-    const editContactDb = (contact: contactDetails1) => {
+    const handleEditContactDb = (contact: ContactInfo) => {
         axios
             .put('http://localhost:4001/contacts/edit', {
                 contact
@@ -148,21 +147,13 @@ export const ContactDashboard = () => {
                 fetchContacts()
 
             })
-            .catch(error => console.error(`There was an error creating the ${contact.firstName} error: ${error}`))
-
+            .catch(error => console.error(`There was an error editing contact: ${selectedContact.firstName} ${selectedContact.lastName} error: ${error}`))
 
     }
 
     const handleEditContact = (e: React.MouseEvent<HTMLButtonElement>) => {
-
-
         setModalEdit(!modalEdit)
-        // console.log(contact)
-        console.log(selectedContact);
-
-        editContactDb(selectedContact)
-
-
+        handleEditContactDb(selectedContact)
     }
 
 
@@ -178,7 +169,7 @@ export const ContactDashboard = () => {
                 // the contacts on the row 
                 fetchContacts()
             })
-            .catch(error => console.error(`There was an error removing the ${firstName} error: ${error}`))
+            .catch(error => console.error(`There was an error removing the contact:  ${selectedContact.firstName} ${selectedContact.lastName} error: ${error}`))
     }
 
     const handleContactSearchById = (id: number) => {
@@ -213,7 +204,7 @@ export const ContactDashboard = () => {
         }
     }
 
-    const handleCloseModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleCloseEditModal = (e: React.MouseEvent<HTMLButtonElement>) => {
         console.log("Entering");
         setModalEdit(!modalEdit);
         setSelectedContact(contactDetails);
@@ -222,23 +213,11 @@ export const ContactDashboard = () => {
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        // let newValue = name === 'age' ? parseFloat(value) : value
-
-        console.log({ selectedContact });
-
         setSelectedContact((selectedContact) => ({ ...selectedContact, [name]: value }))
-        console.log({ selectedContact });
-
-        console.log(e.target.value);
-
-        console.log(e.target);
-
-
     }
     const handleOnSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setContact((prevState) => ({ ...prevState, [name]: value }))
-
+        setSelectedContact((selectedContact) => ({ ...selectedContact, [name]: value }))
     }
     // Reset all input fields
     const handleInputsReset = () => {
@@ -247,16 +226,6 @@ export const ContactDashboard = () => {
     }
 
     const handleToggleModal = () => setModalAdd(!modalAdd);
-
-
-
-
-
-
-
-
-
-
 
     // Reset contacts list (remove all contacts)
     const handleListReset = () => {
@@ -269,24 +238,6 @@ export const ContactDashboard = () => {
             })
             .catch(error => console.error(`There was an error resetting the contact list: ${error}`))
     }
-
-
-
-    // type valuesToUpdateProps = {
-    //     key: string, value: string | number
-    // }
-    //TODO Create type CONTACT
-    // const handleSaveContactInfo = (valuesToUpdate: valuesToUpdateProps) => {
-
-    //     const { key, value } = valuesToUpdate;
-    //     setEditedContact((prevContact) => ({
-    //         ...prevContact,
-    //         [key]: value
-    //     }));
-
-    // }
-
-
 
     return (
         <div className="contact-list-wrapper">
@@ -389,7 +340,7 @@ export const ContactDashboard = () => {
 
                         {selectedContact?.id &&
 
-                            <ContactModalEdit selectedContact={selectedContact} handleCloseModal={handleCloseModal} handleEditContact={handleEditContact} handleOnChange={handleOnChange} />
+                            <ContactModalEdit selectedContact={selectedContact} handleCloseEditModal={handleCloseEditModal} handleEditContact={handleEditContact} handleOnChange={handleOnChange} />
 
                         }
                     </>
