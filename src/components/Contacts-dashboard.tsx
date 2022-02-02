@@ -6,17 +6,19 @@ import { ContactModalEdit } from './Contact-modal-edit'
 // Import styles
 import "./style/contacts-dashboard/style.scss"
 
+import avatar1 from "../assets/avatars/avatar1.png"
+import avatar2 from "../assets/avatars/avatar2.png"
 
 type ContactInfo = {
     id: number;
     firstName: string;
     lastName: string;
     email: string;
-    age?: number | string;
-    phoneNumber?: string;
-    avatar?: string;
-    link?: string;
-    tags?: string;
+    age: number;
+    phoneNumber: string;
+    avatar: string
+    link: string;
+    tags: string;
 }
 
 // Create Contact component
@@ -73,7 +75,6 @@ export const ContactDashboard = () => {
                 tags: selectedContact.tags
             })
             .then(res => {
-                // console.log(res.data)
 
                 // Fetch all contactss to refresh
                 // the contacts on the row 
@@ -96,6 +97,8 @@ export const ContactDashboard = () => {
         // Reset all input fields
         handleInputsReset()
         handleToggleModal()
+        console.log({ selectedContact });
+
 
     }
 
@@ -182,7 +185,10 @@ export const ContactDashboard = () => {
             email: '',
             age: 0,
             phoneNumber: "",
+
             avatar: "",
+            // option3: "",
+
             link: "",
             tags: "",
         }
@@ -239,6 +245,9 @@ export const ContactDashboard = () => {
             .catch(error => console.error(`There was an error resetting the contact list: ${error}`))
     }
 
+
+
+
     return (
         <div className="contact-list-wrapper">
             {/* Form for creating new contact */}
@@ -272,7 +281,7 @@ export const ContactDashboard = () => {
 
                         <fieldset className='age'>
                             <label className="form-label" htmlFor="age">Enter age:</label>
-                            <input className="form-input" type="text" id="age" name="age"
+                            <input className="form-input age-input" type="number" id="age" name="age"
                                 onChange={handleOnChange} />
                         </fieldset>
                         <fieldset className='link'>
@@ -284,14 +293,24 @@ export const ContactDashboard = () => {
 
                         <fieldset className='avatar'>
                             <label className="form-label" htmlFor="avatar">Enter avatar:</label>
-                            <input className="form-input" type="text" id="avatar" name="avatar"
-                                onChange={handleOnChange} />
+                            <div>
+                                <label className="avatars">
+                                    <input type="radio" name="avatar" value="avatar1" onChange={handleOnChange} id="avatar" />
+                                    <img src={avatar1} alt='avatar' style={{ height: 50, width: 50 }} ></img>
+                                </label>
+                                <label className="avatars">
+                                    <input type="radio" name="avatar" value="avatar2" id="avatar" onChange={handleOnChange} />
+                                    <img src={avatar2} alt='avatar' style={{ height: 50, width: 50 }} ></img>
+                                </label>
+                            </div>
+
                         </fieldset>
+
 
 
                         <fieldset className='tags'>
                             <label className="form-label" htmlFor="tags">Enter tags:</label>
-                            <select className="form-input" id="tags" name="tags"
+                            <select className="form-select" id="tags" name="tags"
                                 onChange={handleOnSelect}>
                                 <option value="select">Tags: </option>
                                 <option value="Family">Family</option>
@@ -321,7 +340,7 @@ export const ContactDashboard = () => {
                     {
                         contacts.length > 0 && (
                             <div>
-                                <button className="btn btn-reset" onClick={handleListReset}>Reset Contacts list.</button>
+                                <button className="btn btn-reset" onClick={handleListReset}>Reset Contacts list</button>
                             </div>
 
                         )
@@ -340,7 +359,7 @@ export const ContactDashboard = () => {
 
                         {selectedContact?.id &&
 
-                            <ContactModalEdit selectedContact={selectedContact} handleCloseEditModal={handleCloseEditModal} handleEditContact={handleEditContact} handleOnChange={handleOnChange} />
+                            <ContactModalEdit selectedContact={selectedContact} handleCloseEditModal={handleCloseEditModal} handleEditContact={handleEditContact} handleOnChange={handleOnChange} handleOnSelect={handleOnSelect} />
 
                         }
                     </>
