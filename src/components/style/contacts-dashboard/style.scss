@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  // align-items: center;
   height: auto;
   width: 100%;
 
@@ -65,6 +64,7 @@
       .avatar {
         grid-area: avatar;
       }
+
       .add {
         grid-area: add;
       }
@@ -80,7 +80,7 @@
         label {
           margin-bottom: 5px;
         }
-        input {
+        .form-input {
           height: 4vh;
           border-radius: 10px;
           outline: none;
@@ -90,6 +90,36 @@
           font-size: 15px;
           color: #696969;
           font-weight: 600;
+        }
+        .form-select {
+          height: 4vh;
+          border-radius: 10px;
+          outline: none;
+          border: none;
+          box-sizing: border-box;
+          padding: 8px;
+          font-size: 15px;
+          color: #696969;
+          font-weight: 600;
+        }
+
+        .age-input::-webkit-outer-spin-button,
+        .age-input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+        }
+        div {
+          input {
+            // display: none;
+          }
+          input,
+          img {
+            cursor: pointer;
+            border: 2px solid transparent;
+          }
+          input:checked,
+          img:checked {
+            border: 2px solid black;
+          }
         }
       }
     }

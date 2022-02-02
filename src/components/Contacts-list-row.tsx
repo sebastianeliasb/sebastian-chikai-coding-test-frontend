@@ -1,5 +1,7 @@
 // Import deps
 import React from 'react';
+import avatar1 from "../assets/avatars/avatar1.png"
+import avatar2 from "../assets/avatars/avatar2.png"
 
 // Creation of interface
 interface ContactsListRowUI {
@@ -11,7 +13,7 @@ interface ContactsListRowUI {
         email: string;
         age: number;
         phoneNumber: string;
-        avatar: string;
+        avatar: string
         link: string;
         tags: string;
     }
@@ -42,8 +44,8 @@ export const ContactsListRow = (props: ContactsListRowUI) => (
         <td className="table-item">
             {props.contact.phoneNumber}
         </td>
-        <td className="table-item">
-            {props.contact.avatar}
+        <td className="table-item" >
+            <img src={props.contact.avatar === "avatar1" ? avatar1 : avatar2} alt="" />
         </td>
         <td className="table-item">
             {props.contact.link}

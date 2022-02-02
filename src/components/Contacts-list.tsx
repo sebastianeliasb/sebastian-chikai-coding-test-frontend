@@ -15,9 +15,10 @@ interface ContactUI {
     email: string;
     age: number;
     phoneNumber: string;
-    avatar: string;
+    avatar: string
     link: string;
     tags: string;
+
 }
 
 interface ContactListUI {

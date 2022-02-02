@@ -6,14 +6,15 @@ import { ContactModalEdit } from "./Contact-modal-edit"
 
 interface ContactViewUI {
     id: number;
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    age?: number | string;
-    phoneNumber?: string;
-    avatar?: string;
-    link?: string;
-    tags?: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    age: number;
+    phoneNumber: string;
+    avatar: string
+    link: string;
+    tags: string;
+
 
 }
 
@@ -23,6 +24,8 @@ interface Contact {
     handleCloseEditModal: (e: React.MouseEvent<HTMLButtonElement>) => void
     handleEditContact: (e: React.MouseEvent<HTMLButtonElement>) => void
     handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    handleOnSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void
+
 
 
 
@@ -40,6 +43,7 @@ export const ContactView = (props: Contact) => {
                     props.contacts.map((contact: ContactViewUI, idx) => (
 
                         <ContactModalEdit
+                            handleOnSelect={props.handleOnSelect}
                             handleOnChange={props.handleOnChange}
                             handleCloseEditModal={props.handleCloseEditModal}
                             handleEditContact={props.handleEditContact}
