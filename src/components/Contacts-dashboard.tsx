@@ -97,7 +97,7 @@ export const ContactDashboard = () => {
         // Check if all fields are filled
 
         if (selectedContact.firstName.length > 0 && selectedContact.email.length > 0
-            && selectedContact.phoneNumber.length > 0 && selectedContact.avatar.length > 0 && selectedContact.age < 0) {
+            && selectedContact.phoneNumber.length > 0 && selectedContact.avatar.length > 0 && selectedContact.age > 0) {
             handleContactCreate()
             handleInputsReset()
             handleToggleModal()
@@ -161,7 +161,7 @@ export const ContactDashboard = () => {
 
     const handleEditContact = (e: React.MouseEvent<HTMLButtonElement>) => {
         if (selectedContact.firstName.length > 0 && selectedContact.email.length > 0 && selectedContact.phoneNumber.length > 0
-            && selectedContact.avatar.length > 0 && selectedContact.age < 0) {
+            && selectedContact.avatar.length > 0 && selectedContact.age > 0) {
             setModalEdit(!modalEdit)
             handleEditContactDb(selectedContact)
 
