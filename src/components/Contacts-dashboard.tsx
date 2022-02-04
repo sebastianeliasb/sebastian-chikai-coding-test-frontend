@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+
+// import {
+//     notifyContactCreateError, notifyContactCreationSuccess, notifyContactEditingSuccess,
+//     notifyContactEditError, notifyContactDeleteSucess, notifyContactDeleteError
+// } from '../errorHandling/errorHandling'
+
+import {
+    handleError
+} from '../errorHandling/errorHandling'
+
+
 // Import components
 import { ContactList } from './Contacts-list'
 import { ContactModalEdit } from './Contact-modal-edit'
@@ -47,6 +58,9 @@ export const ContactDashboard = () => {
     const [viewInfo, setViewInfo] = useState(false)
 
 
+
+
+
     // Fetch all contacts on initial render
     useEffect(() => {
         fetchContacts()
@@ -75,13 +89,15 @@ export const ContactDashboard = () => {
                 tags: selectedContact.tags
             })
             .then(res => {
-
+                handleError.successCreate()
                 // Fetch all contactss to refresh
                 // the contacts on the row 
                 fetchContacts()
 
+
             })
-            .catch(error => console.error(`There was an error creating the ${selectedContact.firstName} error: ${error}`))
+            .catch(error => handleError.errorCreate())
+        // notifyContactEditingSuccess()
 
 
     }
@@ -143,14 +159,14 @@ export const ContactDashboard = () => {
             })
             .then(res => {
                 // console.log(res.data)
-
+                handleError.sucessEdit()
                 console.log(res.data)
                 // Fetch all contactss to refresh
                 // the contacts on the row 
                 fetchContacts()
 
             })
-            .catch(error => console.error(`There was an error editing contact: ${selectedContact.firstName} ${selectedContact.lastName} error: ${error}`))
+            .catch(error => handleError.errorEdit())
 
     }
 
@@ -165,14 +181,13 @@ export const ContactDashboard = () => {
         axios
             .put('http://localhost:4001/contacts/delete', { id: id })
             .then((response) => {
-                console.log(`Contact ${firstName} removed.`)
-                console.log(response.data)
+                handleError.successDelete()
 
                 // Fetch all contacts to refresh
                 // the contacts on the row 
                 fetchContacts()
             })
-            .catch(error => console.error(`There was an error removing the contact:  ${selectedContact.firstName} ${selectedContact.lastName} error: ${error}`))
+            .catch(error => handleError.errorDelete())
     }
 
     const handleContactSearchById = (id: number) => {
@@ -370,6 +385,7 @@ export const ContactDashboard = () => {
 
 
         </div>
+
 
     )
 }
