@@ -98,6 +98,7 @@ Style elements, that includes all _scss_ files and _classes_ have the same rules
 <summary>Front-end</summary>
 
 ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black)
+![Typescript](https://img.shields.io/badge/Typescript-61DAFB?style=flat-square&logo=Typescript&logoColor=blue)
 ![Sass](https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=Sass&logoColor=white)
 
 ![JS](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=black)
