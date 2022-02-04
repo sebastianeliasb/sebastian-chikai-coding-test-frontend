@@ -1,3 +1,6 @@
+* {
+  font-family: "Zen Kaku Gothic Antique", sans-serif;
+}
 html,
 body {
   background-color: #132d43;
@@ -14,7 +17,6 @@ body {
 }
 
 .btn {
-  background-color: rgba(179, 171, 171, 0.657);
   border-radius: 8px;
   border-width: 0;
   color: white;
@@ -52,4 +54,15 @@ body {
 .btn-reset,
 .btn-close {
   background-color: rgba(185, 8, 8, 0.555);
+  &:hover {
+    background-color: rgba(204, 17, 17, 0.787);
+  }
+}
+
+.btn-add {
+  background-color: #838181a6;
+
+  &:hover {
+    background-color: #b1b1b1a6;
+  }
 }

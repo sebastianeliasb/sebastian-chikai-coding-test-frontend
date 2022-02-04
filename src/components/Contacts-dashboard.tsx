@@ -376,7 +376,7 @@ export const ContactDashboard = () => {
                     {
                         contacts.length > 0 && (
                             <div>
-                                <button className="btn btn-reset" onClick={handleListReset}>Reset Contacts list</button>
+                                <button className="btn btn-reset" onClick={handleListReset}>Delete all contacts</button>
                             </div>
 
                         )
