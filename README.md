@@ -72,7 +72,7 @@ Structural element names have a strict policy to be simple, clear and descriptiv
 Style elements, that includes all _scss_ files and _classes_ have the same rules: lowercase connected by hyphens. The names need to be __descriptive__ but __short__ and, in case they are nested components or classes, should have a reference of their __parent element__ on the name.
 
 ## Main Features
-* Create contacts in your likeing
+* Create contacts to your likeing
 
 [![Image from Gyazo](https://i.gyazo.com/5202dae46c5a42da796f4b5d4db56127.gif)](https://gyazo.com/5202dae46c5a42da796f4b5d4db56127)
 
