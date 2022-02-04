@@ -74,7 +74,7 @@ Style elements, that includes all _scss_ files and _classes_ have the same rules
 ## Main Features
 * Create contacts to your likeing
 
-[![Image from Gyazo](https://i.gyazo.com/5202dae46c5a42da796f4b5d4db56127.gif)](https://gyazo.com/5202dae46c5a42da796f4b5d4db56127)
+[![Image from Gyazo](https://i.gyazo.com/a3fa88d465412bbcc5c9589a82cd60d0.gif)](https://gyazo.com/a3fa88d465412bbcc5c9589a82cd60d0)
 
 * Edit selected contact if you need any changes
 
