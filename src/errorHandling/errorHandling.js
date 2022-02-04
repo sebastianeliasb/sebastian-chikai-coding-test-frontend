@@ -10,7 +10,7 @@ export const handleError = {
   errorDelete: () => toast.error("Error Deleting Contact"),
   errorSchema: () =>
     toast.info(
-      `Please enter requieres fields: 
+      `Please enter requiered fields: 
         - First Name
         -Email, 
         -Phone Number 
