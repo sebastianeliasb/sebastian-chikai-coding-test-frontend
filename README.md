@@ -1,6 +1,6 @@
 # sebastian-Chikai-coding-test-frontend
 ## 📔 Description
-**A Personal agenda made with React,Typescript,Sqlite and Express**
+**A Personal agenda made with React, Typescript, Sqlite and Express**
 
 Manage your contacts through this app.
 
