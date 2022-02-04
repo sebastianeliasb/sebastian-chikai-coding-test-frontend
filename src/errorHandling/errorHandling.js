@@ -11,9 +11,10 @@ export const handleError = {
   errorSchema: () =>
     toast.info(
       `Please enter requiered fields: 
-        - First Name
-        -Email, 
-        -Phone Number 
-        -Avatar`
+        - First Name -
+        - Email -
+        - Age -
+        - Phone Number -
+        - Avatar -`
     ),
 };

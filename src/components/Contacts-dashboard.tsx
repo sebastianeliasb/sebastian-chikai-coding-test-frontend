@@ -57,10 +57,6 @@ export const ContactDashboard = () => {
     const [loading, setLoading] = useState(true)
     const [viewInfo, setViewInfo] = useState(false)
 
-
-
-
-
     // Fetch all contacts on initial render
     useEffect(() => {
         fetchContacts()
@@ -69,10 +65,7 @@ export const ContactDashboard = () => {
     }, [])
     useEffect(() => {
 
-
     }, [selectedContact])
-
-
 
     // Create new contacts
     const handleContactCreate = () => {
@@ -94,12 +87,8 @@ export const ContactDashboard = () => {
                 // the contacts on the row 
                 fetchContacts()
 
-
             })
             .catch(error => handleError.errorCreate())
-        // notifyContactEditingSuccess()
-
-
     }
 
 
@@ -107,24 +96,14 @@ export const ContactDashboard = () => {
     const handleContactSubmit = () => {
         // Check if all fields are filled
 
-        if (selectedContact.firstName.length > 0 && selectedContact.email.length > 0 && selectedContact.phoneNumber.length > 0 && selectedContact.avatar.length > 0) {
+        if (selectedContact.firstName.length > 0 && selectedContact.email.length > 0
+            && selectedContact.phoneNumber.length > 0 && selectedContact.avatar.length > 0 && selectedContact.age < 0) {
             handleContactCreate()
             handleInputsReset()
             handleToggleModal()
         } else {
-
             handleError.errorSchema()
         }
-
-        // Create new contact
-
-
-        console.info(`Contact ${selectedContact.firstName} ${selectedContact.lastName} added.`)
-
-        // Reset all input fields
-
-        console.log({ selectedContact });
-
 
     }
 
@@ -181,9 +160,12 @@ export const ContactDashboard = () => {
     }
 
     const handleEditContact = (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (selectedContact.firstName.length > 0 && selectedContact.email.length > 0 && selectedContact.phoneNumber.length > 0 && selectedContact.avatar.length > 0) {
+        if (selectedContact.firstName.length > 0 && selectedContact.email.length > 0 && selectedContact.phoneNumber.length > 0
+            && selectedContact.avatar.length > 0 && selectedContact.age < 0) {
             setModalEdit(!modalEdit)
             handleEditContactDb(selectedContact)
+
+
         }
         else {
             handleError.errorSchema()
@@ -216,10 +198,7 @@ export const ContactDashboard = () => {
             email: '',
             age: 0,
             phoneNumber: "",
-
             avatar: "",
-            // option3: "",
-
             link: "",
             tags: "",
         }
@@ -264,7 +243,11 @@ export const ContactDashboard = () => {
         setContact({ ...contactDetails })
     }
 
-    const handleToggleModal = () => setModalAdd(!modalAdd);
+    const handleToggleModal = () => {
+        setModalAdd(!modalAdd)
+        setSelectedContact({ ...contactDetails })
+
+    };
 
     // Reset contacts list (remove all contacts)
     const handleListReset = () => {
@@ -315,7 +298,7 @@ export const ContactDashboard = () => {
 
 
                         <fieldset className='age'>
-                            <label className="form-label" htmlFor="age">Enter age:</label>
+                            <label className="form-label" htmlFor="age">Enter age*:</label>
                             <input className="form-input age-input" type="number" id="age" name="age"
                                 onChange={handleOnChange} />
                         </fieldset>

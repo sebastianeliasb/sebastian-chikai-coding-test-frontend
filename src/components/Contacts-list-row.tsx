@@ -45,7 +45,7 @@ export const ContactsListRow = (props: ContactsListRowUI) => (
             {props.contact.phoneNumber}
         </td>
         <td className="table-item" >
-            <img src={props.contact.avatar === "avatar1" ? avatar1 : avatar2} alt="" />
+            <img src={props.contact.avatar === "avatar1" ? avatar1 : avatar2} alt="avatar" />
         </td>
         <td className="table-item">
             {props.contact.link}
