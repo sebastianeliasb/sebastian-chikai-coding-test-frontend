@@ -1,6 +1,5 @@
 # sebastian-Chikai-coding-test-frontend
 ## 📔 Description
-**A Music player made with React and Node.js**
 **A Personal agenda made with React,Typescript,Sqlite and Express**
 
 Manage your contacts through this app.
