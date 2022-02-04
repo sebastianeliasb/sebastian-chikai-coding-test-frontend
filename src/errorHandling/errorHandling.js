@@ -8,4 +8,12 @@ export const handleError = {
   errorCreate: () => toast.error("Error Editing Contact"),
   errorEdit: () => toast.error("Error Editing Contact"),
   errorDelete: () => toast.error("Error Deleting Contact"),
+  errorSchema: () =>
+    toast.info(
+      `Please enter requieres fields: 
+        - First Name
+        -Email, 
+        -Phone Number 
+        -Avatar`
+    ),
 };

@@ -101,18 +101,28 @@ export const ContactDashboard = () => {
 
 
     }
+
+
     // Submit new contact
     const handleContactSubmit = () => {
         // Check if all fields are filled
 
+        if (selectedContact.firstName.length > 0 && selectedContact.email.length > 0 && selectedContact.phoneNumber.length > 0 && selectedContact.avatar.length > 0) {
+            handleContactCreate()
+            handleInputsReset()
+            handleToggleModal()
+        } else {
+
+            handleError.errorSchema()
+        }
+
         // Create new contact
-        handleContactCreate()
+
 
         console.info(`Contact ${selectedContact.firstName} ${selectedContact.lastName} added.`)
 
         // Reset all input fields
-        handleInputsReset()
-        handleToggleModal()
+
         console.log({ selectedContact });
 
 
@@ -171,8 +181,14 @@ export const ContactDashboard = () => {
     }
 
     const handleEditContact = (e: React.MouseEvent<HTMLButtonElement>) => {
-        setModalEdit(!modalEdit)
-        handleEditContactDb(selectedContact)
+        if (selectedContact.firstName.length > 0 && selectedContact.email.length > 0 && selectedContact.phoneNumber.length > 0 && selectedContact.avatar.length > 0) {
+            setModalEdit(!modalEdit)
+            handleEditContactDb(selectedContact)
+        }
+        else {
+            handleError.errorSchema()
+        }
+
     }
 
 
@@ -233,8 +249,10 @@ export const ContactDashboard = () => {
     }
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
         const { name, value } = e.target;
         setSelectedContact((selectedContact) => ({ ...selectedContact, [name]: value }))
+
     }
     const handleOnSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -272,9 +290,11 @@ export const ContactDashboard = () => {
 
 
                         <fieldset className='firstName'>
-                            <label className="form-label" htmlFor="firstName">Enter first name:</label>
+                            <label className="form-label" htmlFor="firstName">Enter first name*:</label>
                             <input className="form-input" type="text" id="firstName" name="firstName"
                                 onChange={handleOnChange} />
+
+
                         </fieldset>
                         <fieldset className='lastName'>
                             <label className="form-label" htmlFor="lastName">Enter last name:</label>
@@ -282,12 +302,12 @@ export const ContactDashboard = () => {
                                 onChange={handleOnChange} />
                         </fieldset>
                         <fieldset className='email'>
-                            <label className="form-label" htmlFor="email">Enter email:</label>
+                            <label className="form-label" htmlFor="email">Enter email*:</label>
                             <input className="form-input" type="text" id="email" name="email"
                                 onChange={handleOnChange} />
                         </fieldset>
                         <fieldset className='phoneNumber'>
-                            <label className="form-label" htmlFor="phoneNumber">Enter phone number:</label>
+                            <label className="form-label" htmlFor="phoneNumber">Enter phone number*:</label>
 
                             <input className="form-input" type="text" id="phoneNumber" name="phoneNumber"
                                 onChange={handleOnChange} />
@@ -307,7 +327,7 @@ export const ContactDashboard = () => {
 
 
                         <fieldset className='avatar'>
-                            <label className="form-label" htmlFor="avatar">Enter avatar:</label>
+                            <label className="form-label" htmlFor="avatar">Choose avatar*:</label>
                             <div>
                                 <label className="avatars">
                                     <input type="radio" name="avatar" value="avatar1" onChange={handleOnChange} id="avatar" />
@@ -320,9 +340,6 @@ export const ContactDashboard = () => {
                             </div>
 
                         </fieldset>
-
-
-
                         <fieldset className='tags'>
                             <label className="form-label" htmlFor="tags">Enter tags:</label>
                             <select className="form-select" id="tags" name="tags"
@@ -335,13 +352,17 @@ export const ContactDashboard = () => {
                             </select>
                         </fieldset>
 
+
                         <div className='add-btn-wrapper add'>
                             <button onClick={handleContactSubmit} className="btn btn-add">Add contact</button>
                         </div>
+                        <p>* Requiered Fields</p>
                         <div className='close-modal-wrapper close'>
                             <button onClick={handleToggleModal} className="btn btn-close">Close</button>
                         </div>
+
                     </div>
+
 
 
                 </div> : null

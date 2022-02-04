@@ -17,7 +17,7 @@ render(<><ContactDashboard /><ToastContainer position="top-center"
         color: "#fff",
         fontSize: "12px",
     }}
-    autoClose={1500}
+    autoClose={1800}
     // hideProgressBar
     newestOnTop={false}
     closeOnClick
