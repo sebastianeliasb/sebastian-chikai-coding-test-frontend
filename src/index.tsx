@@ -5,12 +5,9 @@ import "./index.scss"
 import { ContactDashboard } from './components/Contacts-dashboard'
 import { ToastContainer } from 'react-toastify'
 
-// Import styles
 
-// Find div container
 const rootElement = document.getElementById('root')
 
-// Render Contacts component in the DOM
 render(<><ContactDashboard /><ToastContainer position="top-center"
     toastStyle={{
         backgroundColor: "#171717",
@@ -26,6 +23,3 @@ render(<><ContactDashboard /><ToastContainer position="top-center"
     draggable
     pauseOnHover /></>, rootElement)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

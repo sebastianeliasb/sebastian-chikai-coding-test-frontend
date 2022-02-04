@@ -1,13 +1,13 @@
-// Import deps
+
 import React from 'react';
-// import testPicture from "../assets/avatars/testPicture.png"
+
 import avatar1 from "../assets/avatars/avatar1.png"
 import avatar2 from "../assets/avatars/avatar2.png"
 
 
-// Creation of interface
+
 type contactModalEditUI = {
-    // position: number;
+
     selectedContact: {
         id: number;
         firstName: string;
@@ -24,7 +24,7 @@ type contactModalEditUI = {
     handleEditContact: (e: React.MouseEvent<HTMLButtonElement>) => void
     handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     handleOnSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void
-    // handleSaveContactInfo: (editedContact) => void
+
 }
 
 
@@ -35,7 +35,6 @@ export const ContactModalEdit = ({ selectedContact, handleCloseEditModal, handle
         <div className='backlash'>
             <div className="contact-list-form">
 
-                {/* onChange={(e) => handleSaveContactInfo({ key: selectedContact.firstName, value: e.target.value })} */}
                 <fieldset className='firstName'>
                     <label className="form-label" htmlFor="firstName">Enter first name:</label>
                     <input className="form-input" type="text" id="firstName" name="firstName" defaultValue={selectedContact.firstName} onChange={handleOnChange} />

@@ -1,20 +1,15 @@
+
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
-// import {
-//     notifyContactCreateError, notifyContactCreationSuccess, notifyContactEditingSuccess,
-//     notifyContactEditError, notifyContactDeleteSucess, notifyContactDeleteError
-// } from '../errorHandling/errorHandling'
-
 import {
     handleError
 } from '../errorHandling/errorHandling'
 
 
-// Import components
+
 import { ContactList } from './Contacts-list'
 import { ContactModalEdit } from './Contact-modal-edit'
-// Import styles
+
 import "./style/contacts-dashboard/style.scss"
 
 import avatar1 from "../assets/avatars/avatar1.png"
@@ -32,7 +27,6 @@ type ContactInfo = {
     tags: string;
 }
 
-// Create Contact component
 export const ContactDashboard = () => {
     // Prepare states
 
@@ -49,11 +43,11 @@ export const ContactDashboard = () => {
     }
 
 
-    const [contact, setContact] = useState(contactDetails) // Input contact => Disapears on refresh
-    const [selectedContact, setSelectedContact] = useState<ContactInfo>(contactDetails) //Selected Contact to edit
+    const [contact, setContact] = useState(contactDetails)
+    const [selectedContact, setSelectedContact] = useState<ContactInfo>(contactDetails)
     const [modalAdd, setModalAdd] = useState(false)
     const [modalEdit, setModalEdit] = useState(false)
-    const [contacts, setContacts] = useState([]) // All contacts => Response from DB, can't access
+    const [contacts, setContacts] = useState([])
     const [loading, setLoading] = useState(true)
     const [viewInfo, setViewInfo] = useState(false)
 
@@ -69,7 +63,6 @@ export const ContactDashboard = () => {
 
     // Create new contacts
     const handleContactCreate = () => {
-        // Send POST request to 'contacts/create' endpoint
         axios
             .post('http://localhost:4001/contacts/create', {
                 firstName: selectedContact.firstName,
@@ -83,8 +76,6 @@ export const ContactDashboard = () => {
             })
             .then(res => {
                 handleError.successCreate()
-                // Fetch all contactss to refresh
-                // the contacts on the row 
                 fetchContacts()
 
             })
@@ -92,9 +83,7 @@ export const ContactDashboard = () => {
     }
 
 
-    // Submit new contact
     const handleContactSubmit = () => {
-        // Check if all fields are filled
 
         if (selectedContact.firstName.length > 0 && selectedContact.email.length > 0
             && selectedContact.phoneNumber.length > 0 && selectedContact.avatar.length > 0 && selectedContact.age > 0) {
@@ -107,17 +96,13 @@ export const ContactDashboard = () => {
 
     }
 
-    // Fetch all contacts
     const fetchContacts = async () => {
-        // Send GET request to 'contacts/all' endpoint
         axios
             .get('http://localhost:4001/contacts/all')
             .then(response => {
-                // Update tcontacts state
                 setContacts(response.data)
 
 
-                // Update loading state
                 setLoading(false)
             })
             .catch(error => console.error(`There was an error retrieving the contacts: ${error}`))
@@ -132,7 +117,6 @@ export const ContactDashboard = () => {
             })
             .then(response => {
                 const contactResponse = (response.data.contactData[0])
-                // console.log(contactResponse)
                 setSelectedContact(contactResponse)
 
             })
@@ -147,11 +131,8 @@ export const ContactDashboard = () => {
                 contact
             })
             .then(res => {
-                // console.log(res.data)
                 handleError.sucessEdit()
                 console.log(res.data)
-                // Fetch all contactss to refresh
-                // the contacts on the row 
                 fetchContacts()
 
             })
@@ -175,14 +156,11 @@ export const ContactDashboard = () => {
 
 
     const handleContactRemove = (id: number, firstName: string) => {
-        // Send PUT request to 'contacts/delete' endpoint
         axios
             .put('http://localhost:4001/contacts/delete', { id: id })
             .then((response) => {
                 handleError.successDelete()
 
-                // Fetch all contacts to refresh
-                // the contacts on the row 
                 fetchContacts()
             })
             .catch(error => handleError.errorDelete())
@@ -237,7 +215,6 @@ export const ContactDashboard = () => {
         const { name, value } = e.target;
         setSelectedContact((selectedContact) => ({ ...selectedContact, [name]: value }))
     }
-    // Reset all input fields
     const handleInputsReset = () => {
 
         setContact({ ...contactDetails })
@@ -249,13 +226,9 @@ export const ContactDashboard = () => {
 
     };
 
-    // Reset contacts list (remove all contacts)
     const handleListReset = () => {
-        // Send PUT request to 'contacts/reset' endpoint
         axios.put('http://localhost:4001/contacts/reset')
             .then(() => {
-                // Fetch all contacts to refresh
-                // the contacts on the row
                 fetchContacts()
             })
             .catch(error => console.error(`There was an error resetting the contact list: ${error}`))
@@ -266,7 +239,6 @@ export const ContactDashboard = () => {
 
     return (
         <div className="contact-list-wrapper">
-            {/* Form for creating new contact */}
             {modalAdd ?
                 <div className='backlash'>
                     <div className="contact-list-form" onSubmit={handleContactSubmit}>
@@ -367,10 +339,8 @@ export const ContactDashboard = () => {
                     }
                 </div>
             }
-            {/* Show reset button if list contains at least one contact */}
 
 
-            {/* Render contacts list component */}
             {modalEdit ?
                 (
                     <>

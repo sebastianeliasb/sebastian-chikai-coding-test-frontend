@@ -1,28 +1,21 @@
 // Import database
 const knex = require("./../db");
 
-// Retrieve all contacts
 exports.contactsAll = async (req, res) => {
-  // Get all contacts from database
   knex
-    .select("*") // select all records
-    .from("contacts") // from 'contacts' table
+    .select("*")
+    .from("contacts")
     .then((userData) => {
-      // Send contacts extracted from database in response
       res.json(userData);
     })
     .catch((err) => {
-      // Send a error message in response
       res.json({ message: `There was an error retrieving contacts: ${err}` });
     });
 };
 
-// Create new contact
 exports.contactsCreate = async (req, res) => {
-  // Add new contact to database
   knex("contacts")
     .insert({
-      // insert new record, a contact
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
@@ -33,35 +26,27 @@ exports.contactsCreate = async (req, res) => {
       tags: req.body.tags,
     })
     .then((response) => {
-      // Send a success message in response
       res.json({
         message: `Contact '${req.body.firstName}' ${req.body.lastName} created.`,
       });
     })
     .catch((err) => {
-      // Send a error message in response
       res.json({
         message: `There was an error creating '${req.body.firstName}' ${req.body.lastName} contact: ${err}`,
       });
     });
 };
 
-// Get specific contact
 exports.getContact = async (req, res) => {
-  // Find specific contact in the database and remove it
-
   knex("contacts")
     .where("id", req.body.id)
-    // .first() // find correct record based on id
     .then((contactData) => {
-      // Send a success message in response
       res.json({
         contactData,
         message: `id : ${req.body.id}`,
       });
     })
     .catch((err) => {
-      // Send a error message in response
       res.json({
         message: `There was an error fetch '${req.body.id}' contact: ${err}`,
       });
@@ -72,7 +57,6 @@ exports.contactEdit = async (req, res) => {
   console.log(req.body, "body");
   knex("contacts")
     .update({
-      // insert new record, a contact
       firstName: req.body.contact.firstName,
       lastName: req.body.contact.lastName,
       email: req.body.contact.email,
@@ -83,55 +67,45 @@ exports.contactEdit = async (req, res) => {
       tags: req.body.contact.tags,
     })
 
-    .where("id", req.body.contact.id) // find correct record based on id
+    .where("id", req.body.contact.id)
 
     .then(() => {
-      // Send a success message in response
       res.json({
         message: `Contact ${req.body.contact.firstName} ${req.body.contact.lastName} edited.`,
       });
     })
     .catch((err) => {
-      // Send a error message in response
       res.json({
         message: `There was an error editing '${req.body.contact.firstName}' ${req.body.contact.lastName} contact: ${err}`,
       });
     });
 };
 
-// Remove specific contacts
 exports.contactsDelete = async (req, res) => {
-  // Find specific contact in the database and remove it
   knex("contacts")
-    .where("id", req.body.id) // find correct record based on id
-    .del() // delete the record
+    .where("id", req.body.id)
+    .del()
     .then(() => {
-      // Send a success message in response
       res.json({
         message: `Contact ${req.body.firstName} ${req.body.lastName} deleted.`,
       });
     })
     .catch((err) => {
-      // Send a error message in response
       res.json({
         message: `There was an error creating '${req.body.firstName}' ${req.body.lastName} contact: ${err}`,
       });
     });
 };
 
-// Remove all contacts on the list
 exports.contactsReset = async (req, res) => {
-  // Remove all contacts from database
   knex
-    .select("*") // select all records
-    .from("contacts") // from 'contacts' table
-    .truncate() // remove the selection
+    .select("*")
+    .from("contacts")
+    .truncate()
     .then(() => {
-      // Send a success message in response
       res.json({ message: "Contacts cleared." });
     })
     .catch((err) => {
-      // Send a error message in response
       res.json({
         message: `There was an error resetting all contacts: ${err}.`,
       });

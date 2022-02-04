@@ -1,7 +1,4 @@
-// Import deps
 import React from 'react';
-
-// Import components
 import { ContactModalEdit } from "./Contact-modal-edit"
 
 interface ContactViewUI {
@@ -33,7 +30,6 @@ interface Contact {
 
 
 export const ContactView = (props: Contact) => {
-    // Show loading message
     if (props.loading) return <p>Contacts are loading...</p>
     return (
         <>

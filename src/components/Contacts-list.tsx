@@ -1,13 +1,9 @@
-// Import deps
 import React from 'react';
 
-// Import components
 import { ContactsListRow } from "./Contacts-list-row"
 
-// Import styles
 import "./style/contacts-list/style.scss"
 
-// Create interfaces
 interface ContactUI {
     id: number;
     firstName: string;
@@ -29,9 +25,7 @@ interface ContactListUI {
 
 }
 
-// Create Contacts component
 export const ContactList = (props: ContactListUI) => {
-    // Show loading message
     if (props.loading) return <p>Contacts are loading...</p>
 
     return (

@@ -1,5 +1,6 @@
 # sebastian-Chikai-coding-test-frontend
 ## 📔 Description
+
 **A Personal agenda made with React, Typescript, Sqlite and Express**
 
 Manage your contacts through this app.
@@ -84,6 +85,11 @@ Style elements, that includes all _scss_ files and _classes_ have the same rules
 
 [![Image from Gyazo](https://i.gyazo.com/f3fa4012a16ba2f993f78ca7c0fa071c.gif)](https://gyazo.com/f3fa4012a16ba2f993f78ca7c0fa071c)
 
+## Notes and wish list
+
+* In develop branch you will find all of the comented code. 
+* User login to have their own personal agenda
+* Dinamic Form Validation
 
 
 

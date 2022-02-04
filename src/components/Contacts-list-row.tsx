@@ -1,9 +1,7 @@
-// Import deps
 import React from 'react';
 import avatar1 from "../assets/avatars/avatar1.png"
 import avatar2 from "../assets/avatars/avatar2.png"
 
-// Creation of interface
 interface ContactsListRowUI {
     position: number;
     contact: {
