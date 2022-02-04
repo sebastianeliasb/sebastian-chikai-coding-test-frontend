@@ -90,6 +90,7 @@ Style elements, that includes all _scss_ files and _classes_ have the same rules
 * In develop branch you will find all of the comented code. 
 * User login to have their own personal agenda
 * Dinamic Form Validation
+* Testing
 
 
 
